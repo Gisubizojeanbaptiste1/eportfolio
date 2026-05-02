@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simy Sandra — Photography</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { green: '#2D6A4F', 'green-light': '#40916C', 'green-dark': '#1B4332', 'green-muted': '#D8F3DC', orange: '#E76F51', 'orange-light': '#F4A261', 'orange-dark': '#D4533B' },
+                        surface: { white: '#FFFFFF', 'off-white': '#FAFAF9', light: '#F5F5F4' },
+                        ink: { black: '#1C1917', dark: '#44403C', mid: '#78716C', light: '#A8A29E' }
+                    },
+                    fontFamily: { display: ['"Cormorant Garamond"', 'serif'], body: ['"DM Sans"', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'DM Sans', sans-serif; color: #1C1917; background: #FFFFFF; overflow-x: hidden; }
+
+        /* Preloader */
+        #preloader { position: fixed; inset: 0; z-index: 9999; background: #1C1917; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 24px; transition: transform 1s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.6s ease; }
+        #preloader.loaded { transform: translateY(-100%); opacity: 0; pointer-events: none; }
+        .loader-text { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; letter-spacing: 0.3em; text-transform: uppercase; color: #A8A29E; }
+        .loader-bar { width: 0; height: 1px; background: linear-gradient(90deg, #2D6A4F, #E76F51); animation: loadBar 1.8s ease-in-out forwards; }
+        @keyframes loadBar { 0% { width: 0; } 60% { width: 200px; } 100% { width: 200px; } }
+
+        /* Navigation */
+        #navbar { transition: background 0.4s, box-shadow 0.4s, padding 0.4s; }
+        #navbar.scrolled { background: rgba(255,255,255,0.97); box-shadow: 0 1px 20px rgba(0,0,0,0.06); backdrop-filter: blur(12px); }
+        #navbar.scrolled .nav-link { color: #44403C !important; }
+        #navbar.scrolled .nav-logo { color: #1C1917 !important; }
+        #navbar.scrolled .hamburger span { background: #1C1917 !important; }
+        .nav-link { position: relative; transition: color 0.3s; }
+        .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1.5px; background: #2D6A4F; transition: width 0.3s ease; }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        .nav-link.active { color: #2D6A4F !important; }
+
+        /* Hamburger */
+        .hamburger { width: 28px; height: 20px; position: relative; cursor: pointer; z-index: 60; }
+        .hamburger span { position: absolute; left: 0; width: 100%; height: 1.5px; background: #fff; transition: all 0.35s cubic-bezier(0.76, 0, 0.24, 1); }
+        .hamburger span:nth-child(1) { top: 0; }
+        .hamburger span:nth-child(2) { top: 50%; transform: translateY(-50%); }
+        .hamburger span:nth-child(3) { bottom: 0; }
+        .hamburger.active span:nth-child(1) { top: 50%; transform: translateY(-50%) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; transform: translateX(20px); }
+        .hamburger.active span:nth-child(3) { bottom: 50%; transform: translateY(50%) rotate(-45deg); }
+        #navbar.scrolled .hamburger.active span { background: #1C1917 !important; }
+
+        /* Mobile Menu */
+        #mobile-menu { position: fixed; inset: 0; z-index: 45; background: rgba(28,25,23,0.97); backdrop-filter: blur(20px); display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.5s cubic-bezier(0.76, 0, 0.24, 1); }
+        #mobile-menu.open { opacity: 1; visibility: visible; }
+        .mobile-link { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: #fff; opacity: 0; transform: translateY(30px); transition: all 0.4s ease; }
+        #mobile-menu.open .mobile-link { opacity: 1; transform: translateY(0); }
+        #mobile-menu.open .mobile-link:nth-child(1) { transition-delay: 0.1s; }
+        #mobile-menu.open .mobile-link:nth-child(2) { transition-delay: 0.2s; }
+        #mobile-menu.open .mobile-link:nth-child(3) { transition-delay: 0.3s; }
+        #mobile-menu.open .mobile-link:nth-child(4) { transition-delay: 0.4s; }
+        #mobile-menu.open .mobile-link:nth-child(5) { transition-delay: 0.5s; }
+        .mobile-link:hover { color: #40916C; }
+
+        /* Hero */
+        .hero-bg { transition: transform 0.1s linear; will-change: transform; }
+        .hero-content { opacity: 0; transform: translateY(40px); animation: heroReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 2s forwards; }
+        .hero-tagline { opacity: 0; animation: heroReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 2.3s forwards; }
+        .hero-cta { opacity: 0; animation: heroReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 2.5s forwards; }
+        @keyframes heroReveal { to { opacity: 1; transform: translateY(0); } }
+        .scroll-indicator { opacity: 0; animation: heroReveal 1s ease 3s forwards; }
+        .scroll-line { width: 1px; height: 60px; background: linear-gradient(to bottom, rgba(255,255,255,0.6), transparent); animation: scrollPulse 2s ease-in-out infinite; }
+        @keyframes scrollPulse { 0%, 100% { opacity: 0.3; transform: scaleY(0.6); transform-origin: top; } 50% { opacity: 1; transform: scaleY(1); } }
+
+        /* Scroll Reveal */
+        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.revealed { opacity: 1; transform: translateY(0); }
+        .reveal-left { opacity: 0; transform: translateX(-50px); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal-left.revealed { opacity: 1; transform: translateX(0); }
+        .reveal-right { opacity: 0; transform: translateX(50px); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal-right.revealed { opacity: 1; transform: translateX(0); }
+        .reveal-zoom { opacity: 0; transform: scale(0.9); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal-zoom.revealed { opacity: 1; transform: scale(1); }
+        .delay-1 { transition-delay: 0.1s !important; }
+        .delay-2 { transition-delay: 0.2s !important; }
+        .delay-3 { transition-delay: 0.3s !important; }
+        .delay-4 { transition-delay: 0.4s !important; }
+
+        /* Masonry */
+        .masonry { column-count: 3; column-gap: 16px; }
+        .masonry-item { break-inside: avoid; margin-bottom: 16px; position: relative; overflow: hidden; border-radius: 6px; cursor: pointer; }
+        .masonry-item img { width: 100%; display: block; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        .masonry-item:hover img { transform: scale(1.05); }
+        .masonry-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,25,23,0.7) 0%, transparent 50%); opacity: 0; transition: opacity 0.4s ease; display: flex; align-items: flex-end; padding: 20px; }
+        .masonry-item:hover .masonry-overlay { opacity: 1; }
+        .masonry-overlay h4 { color: #fff; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 400; transform: translateY(10px); transition: transform 0.4s ease; }
+        .masonry-overlay span { color: #A8A29E; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; transform: translateY(10px); transition: transform 0.4s ease 0.05s; }
+        .masonry-item:hover .masonry-overlay h4,
+        .masonry-item:hover .masonry-overlay span { transform: translateY(0); }
+        .masonry-item.hidden { display: none; }
+        .masonry-item.show { animation: masonryIn 0.5s ease forwards; }
+        @keyframes masonryIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+        @media (max-width: 1024px) { .masonry { column-count: 2; } }
+        @media (max-width: 640px) { .masonry { column-count: 1; } }
+
+        /* Filter Buttons */
+        .filter-btn { padding: 8px 24px; border-radius: 100px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; border: 1px solid #E7E5E4; color: #78716C; background: transparent; cursor: pointer; transition: all 0.3s ease; }
+        .filter-btn:hover { border-color: #2D6A4F; color: #2D6A4F; }
+        .filter-btn.active { background: #2D6A4F; color: #fff; border-color: #2D6A4F; }
+
+        /* Video Cards */
+        .video-card { position: relative; overflow: hidden; border-radius: 8px; cursor: pointer; }
+        .video-card img { width: 100%; display: block; transition: transform 0.6s ease; }
+        .video-card:hover img { transform: scale(1.05); }
+        .video-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 64px; height: 64px; border-radius: 50%; background: rgba(255,255,255,0.95); display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; box-shadow: 0 4px 30px rgba(0,0,0,0.2); }
+        .video-play i { color: #2D6A4F; font-size: 1.2rem; margin-left: 3px; }
+        .video-card:hover .video-play { background: #E76F51; transform: translate(-50%, -50%) scale(1.1); }
+        .video-card:hover .video-play i { color: #fff; }
+
+        /* Testimonials */
+        .testimonial-track { display: flex; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        .testimonial-slide { min-width: 100%; padding: 0 20px; }
+        .testimonial-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.3); cursor: pointer; transition: all 0.3s ease; }
+        .testimonial-dot.active { background: #E76F51; width: 24px; border-radius: 4px; }
+
+        /* Lightbox */
+        #lightbox { position: fixed; inset: 0; z-index: 9998; background: rgba(10,10,10,0.96); backdrop-filter: blur(20px); display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.4s ease; cursor: zoom-out; }
+        #lightbox.open { opacity: 1; visibility: visible; }
+        #lightbox img { max-width: 90vw; max-height: 85vh; object-fit: contain; border-radius: 4px; transform: scale(0.9); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); cursor: default; }
+        #lightbox.open img { transform: scale(1); }
+        .lb-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; font-size: 1rem; }
+        .lb-btn:hover { background: rgba(255,255,255,0.2); }
+        .lb-close { position: absolute; top: 24px; right: 24px; width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; font-size: 1rem; }
+        .lb-close:hover { background: #E76F51; border-color: #E76F51; }
+        .lb-counter { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.5); font-size: 0.8rem; letter-spacing: 0.1em; }
+
+        /* Video Lightbox */
+        #video-lightbox { position: fixed; inset: 0; z-index: 9998; background: rgba(10,10,10,0.96); backdrop-filter: blur(20px); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 20px; opacity: 0; visibility: hidden; transition: all 0.4s ease; }
+        #video-lightbox.open { opacity: 1; visibility: visible; }
+        .video-player-mock { width: 80vw; max-width: 960px; aspect-ratio: 16/9; background: #0a0a0a; border-radius: 8px; position: relative; overflow: hidden; }
+        .video-player-mock img { width: 100%; height: 100%; object-fit: cover; }
+        .vp-controls { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); }
+        .vp-progress { width: 100%; height: 3px; background: rgba(255,255,255,0.2); border-radius: 2px; margin-bottom: 12px; cursor: pointer; }
+        .vp-progress-fill { height: 100%; width: 35%; background: #E76F51; border-radius: 2px; transition: width 0.1s linear; }
+        .vp-btn { background: none; border: none; color: #fff; font-size: 1rem; cursor: pointer; padding: 4px 8px; transition: color 0.2s; }
+        .vp-btn:hover { color: #E76F51; }
+
+        /* Back to Top */
+        #back-to-top { position: fixed; bottom: 32px; right: 32px; z-index: 40; width: 48px; height: 48px; border-radius: 50%; background: #2D6A4F; color: #fff; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transform: translateY(20px); transition: all 0.4s ease; box-shadow: 0 4px 20px rgba(45,106,79,0.3); }
+        #back-to-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+        #back-to-top:hover { background: #1B4332; transform: translateY(-2px); box-shadow: 0 6px 25px rgba(45,106,79,0.4); }
+
+        /* Toast */
+        #toast { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(100px); z-index: 9999; padding: 16px 32px; border-radius: 8px; color: #fff; font-size: 0.9rem; font-weight: 500; opacity: 0; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); pointer-events: none; }
+        #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        #toast.success { background: #2D6A4F; }
+        #toast.error { background: #E76F51; }
+
+        /* Form Styles */
+        .form-input { width: 100%; padding: 14px 0; border: none; border-bottom: 1px solid #E7E5E4; background: transparent; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; color: #1C1917; outline: none; transition: border-color 0.3s; }
+        .form-input:focus { border-color: #2D6A4F; }
+        .form-input::placeholder { color: #A8A29E; }
+        textarea.form-input { resize: vertical; min-height: 100px; }
+
+        /* Section Divider */
+        .section-label { display: inline-flex; align-items: center; gap: 12px; color: #2D6A4F; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.2em; font-weight: 600; margin-bottom: 16px; }
+        .section-label::before { content: ''; width: 32px; height: 1px; background: #2D6A4F; }
+
+        /* Skill Tag */
+        .skill-tag { display: inline-block; padding: 6px 16px; border: 1px solid #E7E5E4; border-radius: 100px; font-size: 0.8rem; color: #44403C; transition: all 0.3s ease; }
+        .skill-tag:hover { border-color: #2D6A4F; color: #2D6A4F; background: rgba(45,106,79,0.04); }
+
+        /* Social Icons */
+        .social-icon { width: 44px; height: 44px; border-radius: 50%; border: 1px solid #E7E5E4; display: flex; align-items: center; justify-content: center; color: #78716C; transition: all 0.3s ease; font-size: 1rem; }
+        .social-icon:hover { border-color: #2D6A4F; color: #2D6A4F; background: rgba(45,106,79,0.04); transform: translateY(-2px); }
+
+        /* Misc */
+        .img-cover { width: 100%; height: 100%; object-fit: cover; }
+        .green-line { width: 40px; height: 2px; background: #2D6A4F; }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <span class="loader-text">Simy Sandra</span>    
+        <div class="loader-bar"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-5 flex items-center justify-between">
+        <a href="#home" class="nav-logo font-display text-xl font-semibold text-white tracking-wide transition-colors">Simy Sandra</a>
+        <div class="hidden md:flex items-center gap-10">
+            <a href="#home" class="nav-link text-white text-sm tracking-wide font-medium active">Home</a>
+            <a href="#about" class="nav-link text-white text-sm tracking-wide font-medium">About</a>
+            <a href="#projects" class="nav-link text-white text-sm tracking-wide font-medium">Portfolio</a>
+            <a href="#testimonials" class="nav-link text-white text-sm tracking-wide font-medium">Testimonials</a>
+            <a href="#contact" class="nav-link text-white text-sm tracking-wide font-medium">Contact</a>
+        </div>
+        <div class="hamburger md:hidden" id="hamburger" aria-label="Toggle menu" role="button" tabindex="0">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu">
+        <div class="flex flex-col items-center gap-6">
+            <a href="#home" class="mobile-link">Home</a>
+            <a href="#about" class="mobile-link">About</a>
+            <a href="#projects" class="mobile-link">Portfolio</a>
+            <a href="#testimonials" class="mobile-link">Testimonials</a>
+            <a href="#contact" class="mobile-link">Contact</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <header id="home" class="relative w-full h-screen overflow-hidden">
+        <div class="hero-bg absolute inset-0">
+            <img src="https://picsum.photos/seed/cinematic-hero/1920/1080.jpg" alt="Hero background" class="img-cover" loading="eager">
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60"></div>
+        <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
+            <h1 class="hero-content font-display text-5xl sm:text-7xl lg:text-8xl font-light text-white leading-tight tracking-wide">Iradukunda Mahoro Sandra</h1>
+            <p class="hero-tagline font-display text-lg sm:text-xl text-white/70 mt-4 font-light italic tracking-wide">Capturing Light & Emotion</p>
+            <a href="#projects" class="hero-cta inline-block mt-10 px-8 py-3.5 bg-brand-orange text-white text-sm font-semibold uppercase tracking-widest rounded-full hover:bg-brand-orange-dark transition-all duration-300 hover:shadow-lg hover:shadow-brand-orange/30 hover:-translate-y-0.5">View Portfolio</a>
+        </div>
+        <div class="scroll-indicator absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
+            <span class="text-white/40 text-xs uppercase tracking-widest">Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 md:py-36 bg-surface-white">
+        <div class="max-w-6xl mx-auto px-6 md:px-12">
+            <div class="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
+                <div class="reveal-left">
+                    <div class="relative">
+                        <img src="./images/livestreaming.jpg" alt="Simy Sandra" class="w-full rounded-lg shadow-xl" loading="lazy">
+                        <div class="absolute -bottom-6 -right-6 w-32 h-32 border-2 border-brand-green rounded-lg -z-10"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="reveal">
+                        <span class="section-label">About Me</span>
+                        <h2 class="font-display text-4xl md:text-5xl font-light text-ink-black leading-tight mt-2">The Story<br>Behind the Lens</h2>
+                    </div>
+                    <div class="reveal delay-1">
+                        <div class="green-line mt-6 mb-6"></div>
+                        <p class="text-ink-mid leading-relaxed mb-4">I’m a photographer with over two years of experience, developed through my work at Agahozo Shalom Youth Village and by capturing weddings and a variety of events. </p>
+                        <p class="text-ink-mid leading-relaxed mb-8">My approach focuses on documenting authentic moments and telling stories through natural, meaningful images where every frame is a collaboration between light, emotion and timing.</p>
+                    </div>
+                    <div class="reveal delay-2">
+                        <p class="text-sm font-semibold text-ink-dark uppercase tracking-widest mb-4">Specialties</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-tag">Portraits</span>
+                            <span class="skill-tag">Travel & Documentary</span>
+                            <span class="skill-tag">Events & Weddings</span>
+                            <span class="skill-tag">Fine Art</span>
+                            <span class="skill-tag">Passport</span>
+                            <span class="skill-tag">Photo Editing</span>
+                            <span class="skill-tag">Commercial</span>
+                            <span class="skill-tag">Video Editing</span>
+                        </div>
+                    </div>
+                    <div class="reveal delay-3 mt-10 flex gap-12">
+                        <div>
+                            <p class="font-display text-4xl font-semibold text-brand-green">2+</p>
+                            <p class="text-ink-light text-sm mt-1">Years Experience</p>
+                        </div>
+                        <div>
+                            <p class="font-display text-4xl font-semibold text-brand-green">100+</p>
+                            <p class="text-ink-light text-sm mt-1">Projects Delivered</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 md:py-36 bg-surface-off-white">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="text-center mb-16">
+                <span class="section-label reveal justify-center">Portfolio</span>
+                <h2 class="reveal delay-1 font-display text-4xl md:text-5xl lg:text-6xl font-light text-ink-black leading-tight">View My Projects</h2>
+                <p class="reveal delay-2 text-ink-mid mt-4 max-w-xl mx-auto">A curated collection of my meaningful projects, spanning portraits, travel, and events.</p>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="reveal delay-2 flex flex-wrap justify-center gap-3 mb-12">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="portraits">Portraits</button>
+                <button class="filter-btn" data-filter="travel">Travel</button>
+                <button class="filter-btn" data-filter="events">Events</button>
+            </div>
+
+            <!-- Masonry Gallery -->
+            <div class="masonry reveal-zoom" id="gallery">
+                <!-- Portraits -->
+                <div class="masonry-item show" data-category="portraits" data-index="0">
+                    <img src="./images/475648852_17898348387132792_409707442882664904_n.jpg" alt="Happy moments in nature" loading="lazy">
+                    <div class="masonry-overlay"><div><span>Portraits</span><h4>Happy Moments</h4></div></div>
+                </div>
+                <div class="masonry-item show" data-category="events" data-index="1">
+                    <img src="./images/singing.jpg" alt="Mountain landscape at dawn" loading="lazy">
+                    <div class="masonry-overlay"><div><span>Events</span><h4>Singing Performance</h4></div></div>
+                </div>
+                <div class="masonry-item show" data-category="events" data-index="2">
+                    <img src="./images/violin.jpg" alt="Wedding ceremony moment" loading="lazy">
+                    <div class="masonry-overlay"><div><span>Events</span><h4>Violin Performance</h4></div></div>
+                </div>
+                <div class="masonry-item show" data-category="travel" data-index="3">
+                    <img src="./images/village.jpg" alt="Dramatic portrait silhouette" loading="lazy">
+                    <div class="masonry-overlay"><div><span>Travel</span><h4>Musanze Village</h4></div></div>
+                </div>
+                <div class="masonry-item show" data-category="events" data-index="4">
+                    <img src="./images/graduation.jpg" alt="Ancient temple corridor" loading="lazy">
+                    <div class="masonry-overlay"><div><span>Events</span><h4>Graduation Ceremony</h4></div></div>
+                </div>
+                <div class="masonry-item show" data-category="travel" data-index="5">
+                    <img src="./images/climbingvolcano.jpg" alt="Concert stage lights" loading="lazy">
+                    <div class="masonry-overlay"><div><span>Travel</span><h4>Climbing Volcano</h4></div></div>
+                </div>
+                <div class="masonry-item show" data-category="portraits" data-index="6">
+                    <img src="./images/event.jpg" alt="Candid street portrait" loading="lazy">
+                    <div class="masonry-overlay"><div><span>Portraits</span><h4>CEO speech</h4></div></div>
+                </div>
+                <div class="masonry-item show" data-category="events" data-index="7">
+                    <img src="./images/livestreaming.jpg" alt="Coastal village panorama" loading="lazy">
+                    <div class="masonry-overlay"><div><span>Events</span><h4>Village Time</h4></div></div>
+                </div>
+                <div class="masonry-item show" data-category="travel" data-index="8">
+                    <img src="./images/waterfall.jpeg" alt="First dance at reception" loading="lazy">
+                    <div class="masonry-overlay"><div><span>Travel</span><h4>Water Fall</h4></div></div>
+                </div>
+                <div class="masonry-item show" data-category="portraits" data-index="9">
+                    <img src="./images/djing.jpg" alt="Environmental portrait" loading="lazy">
+                    <div class="masonry-overlay"><div><span>Portraits</span><h4>Village Time #djing</h4></div></div>
+                </div>
+                <div class="masonry-item show" data-category="events" data-index="10">
+                    <img src="./images/band.JPG" alt="Desert sand dunes" loading="lazy">
+                    <div class="masonry-overlay"><div><span>Events</span><h4>Band Performance</h4></div></div>
+                </div>
+                <div class="masonry-item show" data-category="events" data-index="11">
+                    <img src="./images/paintings.JPG" alt="Gala dinner atmosphere" loading="lazy">
+                    <div class="masonry-overlay"><div><span>Events</span><h4>Graduation Ceremony</h4></div></div>
+                </div>
+                <div class="masonry-item show" data-category="portraits" data-index="12">
+                    <img src="./images/Kwitaizina.jpeg" alt="Studio portrait with window light" loading="lazy">
+                    <div class="masonry-overlay"><div><span>Portraits</span><h4>Kwitizina Site</h4></div></div>
+                </div>
+                <div class="masonry-item show" data-category="travel" data-index="13">
+                    <img src="https://picsum.photos/seed/travel-b5/400/350.jpg" alt="City skyline at blue hour" loading="lazy">
+                    <div class="masonry-overlay"><div><span>Travel</span><h4>Mountain Landscape</h4></div></div>
+                </div>
+                <div class="masonry-item show" data-category="events" data-index="14">
+                    <img src="./images/climbingvolcano.jpg" alt="Festival celebration crowd" loading="lazy">
+                    <div class="masonry-overlay"><div><span>Events</span><h4>Climbing Volcano</h4></div></div>
+                </div>
+                <div class="masonry-item show" data-category="portraits" data-index="15">
+                    <img src="./images/Musanze.JPG" alt="Artistic double exposure portrait" loading="lazy">
+                    <div class="masonry-overlay"><div><span>Portraits</span><h4>Hiking Volcano</h4></div></div>
+                </div>
+                <div class="masonry-item show" data-category="travel" data-index="16">
+                    <img src="./images/volcano.jpg" alt="Volcano landscape" loading="lazy">
+                    <div class="masonry-overlay"><div><span>Travel</span><h4>Volcano</h4></div></div>
+                </div>
+                <div class="masonry-item show" data-category="travel" data-index="17">
+                    <img src="./images/waterfall2.jpeg" alt="Waterfall in the mountains" loading="lazy">
+                    <div class="masonry-overlay"><div><span>Travel</span><h4>Water Fall</h4></div></div>
+                </div>
+            </div>
+
+            <!-- Video Section -->
+            <div class="mt-24">
+                <div class="text-center mb-12">
+                    <span class="section-label reveal justify-center">Behind the Scenes</span>
+                    <h2 class="reveal delay-1 font-display text-3xl md:text-4xl font-light text-ink-black">Video Showreel</h2>
+                </div>
+                <div class="grid md:grid-cols-2 gap-6 reveal-zoom delay-2">
+                    <div class="video-card" data-video-title="Portraits — Behind the Lens" onclick="openVideoLightbox(this)">
+                        <img src="https://picsum.photos/seed/vid-thumb1/800/450.jpg" alt="Portraits behind the scenes" loading="lazy">
+                        <div class="absolute inset-0 bg-black/20"></div>
+                        <div class="video-play"><i class="fas fa-play"></i></div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <p class="text-sm font-medium">Portraits — Behind the Lens</p>
+                            <p class="text-xs text-white/60 mt-0.5">3:24</p>
+                        </div>
+                    </div>
+                    <div class="video-card" data-video-title="Travel — Journeys Captured" onclick="openVideoLightbox(this)">
+                        <img src="https://picsum.photos/seed/vid-thumb2/800/450.jpg" alt="Travel behind the scenes" loading="lazy">
+                        <div class="absolute inset-0 bg-black/20"></div>
+                        <div class="video-play"><i class="fas fa-play"></i></div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <p class="text-sm font-medium">Travel — Journeys Captured</p>
+                            <p class="text-xs text-white/60 mt-0.5">4:51</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-24 md:py-36 bg-ink-black relative overflow-hidden">
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute top-10 left-10 font-display text-[20rem] font-bold text-white leading-none select-none pointer-events-none">&ldquo;</div>
+        </div>
+        <div class="max-w-4xl mx-auto px-6 md:px-12 relative z-10">
+            <div class="text-center mb-16">
+                <span class="section-label reveal justify-center" style="color:#40916C;">
+                    <span style="display:inline-block;width:32px;height:1px;background:#40916C;"></span>Testimonials
+                </span>
+                <h2 class="reveal delay-1 font-display text-4xl md:text-5xl font-light text-white leading-tight">Kind Words</h2>
+            </div>
+            <div class="overflow-hidden reveal delay-2">
+                <div class="testimonial-track" id="testimonial-track">
+                    <div class="testimonial-slide">
+                        <div class="text-center">
+                            <p class="font-display text-2xl md:text-3xl font-light text-white/90 leading-relaxed italic mb-8">"Sandra has an extraordinary ability to capture the essence of a person. Our engagement photos felt effortless — she made us completely forget the camera was there. The results were beyond anything we imagined."</p>
+                            <div class="flex items-center justify-center gap-4">
+                                <img src="https://picsum.photos/seed/client-sarah/80/80.jpg" alt="Sarah Mitchell" class="w-12 h-12 rounded-full object-cover" loading="lazy">
+                                <div class="text-left">
+                                    <p class="text-white font-medium text-sm">Richard Niyibigira </p>
+                                    <p class="text-white/40 text-xs">Former Country Director, Agahozo Shalom Youth Village</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-slide">
+                        <div class="text-center">
+                            <p class="font-display text-2xl md:text-3xl font-light text-white/90 leading-relaxed italic mb-8">"Working with Sandra on our brand campaign was transformative. She didn't just take photos — she told our story with remarkable depth and artistry. Every image became a conversation piece."</p>
+                            <div class="flex items-center justify-center gap-4">
+                                <img src="https://picsum.photos/seed/client-marcus/80/80.jpg" alt="Marcus Chen" class="w-12 h-12 rounded-full object-cover" loading="lazy">
+                                <div class="text-left">
+                                    <p class="text-white font-medium text-sm">Jacque Mbarushimana</p>
+                                    <p class="text-white/40 text-xs">Sports coach, Agahozo Shalom Youth Village</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-slide">
+                        <div class="text-center">
+                            <p class="font-display text-2xl md:text-3xl font-light text-white/90 leading-relaxed italic mb-8">"Sandra's documentation for graduated class of 2025 Intwali Grade was consistently sets the standard. Her eye for composition and light creates images that transport readers to another place entirely. A true visual storyteller."</p>
+                            <div class="flex items-center justify-center gap-4">
+                                <img src="https://picsum.photos/seed/client-olivia/80/80.jpg" alt="Olivia Reyes" class="w-12 h-12 rounded-full object-cover" loading="lazy">
+                                <div class="text-left">
+                                    <p class="text-white font-medium text-sm">Justin Mutangana</p>
+                                    <p class="text-white/40 text-xs">IT department , Agahozo Shalom Youth Village</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-slide">
+                        <div class="text-center">
+                            <p class="font-display text-2xl md:text-3xl font-light text-white/90 leading-relaxed italic mb-8">"The portrait session was one of the most thoughtful creative experiences I've had. Sandra takes time to understand who you are, and the resulting images reflect that deep consideration. Absolutely stunning work."</p>
+                            <div class="flex items-center justify-center gap-4">
+                                <img src="https://picsum.photos/seed/client-david/80/80.jpg" alt="David Park" class="w-12 h-12 rounded-full object-cover" loading="lazy">
+                                <div class="text-left">
+                                    <p class="text-white font-medium text-sm">Shadrack Niyonzima</p>
+                                    <p class="text-white/40 text-xs">Student Life Manager, Agahozo Shalom Youth Village</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-center gap-2 mt-10" id="testimonial-dots"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 md:py-36 bg-surface-white">
+        <div class="max-w-6xl mx-auto px-6 md:px-12">
+            <div class="grid md:grid-cols-2 gap-16 md:gap-20">
+                <div>
+                    <span class="section-label reveal">Get in Touch</span>
+                    <h2 class="reveal delay-1 font-display text-4xl md:text-5xl font-light text-ink-black leading-tight mt-2">Let's Create<br>Something Beautiful</h2>
+                    <div class="reveal delay-2">
+                        <div class="green-line mt-6 mb-6"></div>
+                        <p class="text-ink-mid leading-relaxed mb-8">Whether you have a specific project in mind or simply want to explore possibilities, I'd love to hear from you. Every great image starts with a conversation.</p>
+                    </div>
+                    <div class="reveal delay-3 space-y-5 mb-10">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-brand-green-muted flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-envelope text-brand-green text-sm"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-ink-light uppercase tracking-widest">Email</p>
+                                <p class="text-ink-dark text-sm font-medium">iradukundasandra44@gmail.com</p>
+                            </div>
+                        </div>
+                        <!-- <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-brand-green-muted flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-phone text-brand-green text-sm"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-ink-light uppercase tracking-widest">Phone</p>
+                                <p class="text-ink-dark text-sm font-medium">+1 (212) 555-0147</p>
+                            </div>
+                        </div> -->
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-brand-green-muted flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-location-dot text-brand-green text-sm"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-ink-light uppercase tracking-widest">Location</p>
+                                <p class="text-ink-dark text-sm font-medium">Kigali, Rwanda</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reveal delay-4 flex gap-3">
+                        <a href="#" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" class="social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+                <div class="reveal-right">
+                    <form id="contact-form" class="space-y-8" novalidate>
+                        <div>
+                            <label for="name" class="text-xs text-ink-light uppercase tracking-widest block mb-2">Your Name</label>
+                            <input type="text" id="name" name="name" class="form-input" placeholder="Simmy Sandra" required>
+                            <p class="text-red-500 text-xs mt-1 hidden" id="name-error">Please enter your name</p>
+                        </div>
+                        <div>
+                            <label for="email" class="text-xs text-ink-light uppercase tracking-widest block mb-2">Your Email</label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="your@example.com" required>
+                            <p class="text-red-500 text-xs mt-1 hidden" id="email-error">Please enter a valid email</p>
+                        </div>
+                        <div>
+                            <label for="message" class="text-xs text-ink-light uppercase tracking-widest block mb-2">Your Message</label>
+                            <textarea id="message" name="message" class="form-input" placeholder="Tell me about your project..." rows="4" required></textarea>
+                            <p class="text-red-500 text-xs mt-1 hidden" id="message-error">Please enter your message</p>
+                        </div>
+                        <button type="submit" class="w-full py-4 bg-brand-green text-white text-sm font-semibold uppercase tracking-widest rounded-full hover:bg-brand-orange-dark transition-all duration-300 hover:shadow-lg hover:shadow-brand-orange/25 hover:-translate-y-0.5 active:translate-y-0">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-ink-black py-12">
+        <div class="max-w-6xl mx-auto px-6 md:px-12">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-6">
+                    <a href="#home" class="font-display text-xl font-semibold text-white tracking-wide">Simmy Sandra</a>
+                    <span class="text-white/20">|</span>
+                    <p class="text-white/40 text-sm">&copy; 2025 All rights reserved</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a href="#" class="text-white/40 hover:text-brand-green-light transition-colors text-sm" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-white/40 hover:text-brand-green-light transition-colors text-sm" aria-label="TIKTOK"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="text-white/40 hover:text-brand-green-light transition-colors text-sm" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+                    <a href="#" class="text-white/40 hover:text-brand-green-light transition-colors text-sm" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Image Lightbox -->
+    <div id="lightbox" role="dialog" aria-label="Image viewer">
+        <button class="lb-close" aria-label="Close"><i class="fas fa-xmark"></i></button>
+        <button class="lb-btn" style="left:24px;" aria-label="Previous image"><i class="fas fa-chevron-left"></i></button>
+        <img src="" alt="" id="lb-img">
+        <button class="lb-btn" style="right:24px;" aria-label="Next image"><i class="fas fa-chevron-right"></i></button>
+        <div class="lb-counter" id="lb-counter"></div>
+    </div>
+
+    <!-- Video Lightbox -->
+    <div id="video-lightbox" role="dialog" aria-label="Video player">
+        <button class="lb-close" style="top:24px;right:24px;position:absolute;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s ease;font-size:1rem;z-index:10;" aria-label="Close video" onclick="closeVideoLightbox()"><i class="fas fa-xmark"></i></button>
+        <p class="text-white font-display text-xl font-light" id="video-title" style="margin-top:20px;"></p>
+        <div class="video-player-mock">
+            <img src="" alt="" id="vp-img">
+            <div class="vp-controls">
+                <div class="vp-progress" id="vp-progress"><div class="vp-progress-fill" id="vp-fill"></div></div>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <button class="vp-btn" id="vp-play-btn" onclick="toggleVideoPlay()"><i class="fas fa-pause"></i></button>
+                        <button class="vp-btn" onclick="toggleVideoMute()"><i class="fas fa-volume-high" id="vp-volume-icon"></i></button>
+                        <span class="text-white/60 text-xs ml-2" id="vp-time">1:12 / 3:24</span>
+                    </div>
+                    <button class="vp-btn" onclick="toggleVideoFullscreen()"><i class="fas fa-expand"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top -->
+    <button id="back-to-top" aria-label="Back to top"><i class="fas fa-arrow-up text-sm"></i></button>
+
+    <!-- Toast -->
+    <div id="toast"></div>
+
+    <script>
+        // ==================== PRELOADER ====================
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('preloader').classList.add('loaded');
+            }, 2000);
+        });
+
+        // ==================== NAVIGATION ====================
+        const navbar = document.getElementById('navbar');
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        const sections = document.querySelectorAll('section, header');
+
+        // Scroll behavior
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            if (scrollY > 80) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            // Active nav link
+            sections.forEach(section => {
+                const top = section.offsetTop - 150;
+                const bottom = top + section.offsetHeight;
+                if (scrollY >= top && scrollY < bottom) {
+                    const id = section.getAttribute('id');
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === '#' + id) link.classList.add('active');
+                    });
+                }
+            });
+
+            // Back to top
+            const btn = document.getElementById('back-to-top');
+            if (scrollY > 600) {
+                btn.classList.add('visible');
+            } else {
+                btn.classList.remove('visible');
+            }
+
+            // Hero parallax
+            const heroBg = document.querySelector('.hero-bg');
+            if (heroBg && scrollY < window.innerHeight) {
+                heroBg.style.transform = `translateY(${scrollY * 0.3}px)`;
+            }
+
+            lastScroll = scrollY;
+        });
+
+        // Hamburger toggle
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('open');
+            document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+        });
+
+        // Close mobile menu on link click
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Keyboard support for hamburger
+        hamburger.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                hamburger.click();
+            }
+        });
+
+        // Back to top
+        document.getElementById('back-to-top').addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ==================== SCROLL REVEAL ====================
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-zoom').forEach(el => {
+            revealObserver.observe(el);
+        });
+
+        // ==================== MASONRY FILTER ====================
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const masonryItems = document.querySelectorAll('.masonry-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+
+                masonryItems.forEach(item => {
+                    if (filter === 'all' || item.dataset.category === filter) {
+                        item.classList.remove('hidden');
+                        item.classList.add('show');
+                    } else {
+                        item.classList.add('hidden');
+                        item.classList.remove('show');
+                    }
+                });
+            });
+        });
+
+        // ==================== LIGHTBOX ====================
+        const lightbox = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lb-img');
+        const lbCounter = document.getElementById('lb-counter');
+        let visibleItems = [];
+        let currentLbIndex = 0;
+
+        function getVisibleItems() {
+            return Array.from(masonryItems).filter(item => !item.classList.contains('hidden'));
+        }
+
+        function openLightbox(index) {
+            visibleItems = getVisibleItems();
+            currentLbIndex = index;
+            updateLightbox();
+            lightbox.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function updateLightbox() {
+            const item = visibleItems[currentLbIndex];
+            const img = item.querySelector('img');
+            lbImg.src = img.src;
+            lbImg.alt = img.alt;
+            lbCounter.textContent = `${currentLbIndex + 1} / ${visibleItems.length}`;
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        function nextLbImage() {
+            currentLbIndex = (currentLbIndex + 1) % visibleItems.length;
+            updateLightbox();
+        }
+
+        function prevLbImage() {
+            currentLbIndex = (currentLbIndex - 1 + visibleItems.length) % visibleItems.length;
+            updateLightbox();
+        }
+
+        masonryItems.forEach((item, i) => {
+            item.addEventListener('click', () => {
+                const visible = getVisibleItems();
+                const visibleIndex = visible.indexOf(item);
+                openLightbox(visibleIndex >= 0 ? visibleIndex : 0);
+            });
+        });
+
+        document.querySelector('#lightbox .lb-close').addEventListener('click', (e) => { e.stopPropagation(); closeLightbox(); });
+        document.querySelector('#lightbox .lb-btn[style*="left"]').addEventListener('click', (e) => { e.stopPropagation(); prevLbImage(); });
+        document.querySelector('#lightbox .lb-btn[style*="right"]').addEventListener('click', (e) => { e.stopPropagation(); nextLbImage(); });
+        lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+        lbImg.addEventListener('click', (e) => { e.stopPropagation(); nextLbImage(); });
+
+        // Keyboard navigation for lightbox
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('open')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowRight') nextLbImage();
+            if (e.key === 'ArrowLeft') prevLbImage();
+        });
+
+        // ==================== VIDEO LIGHTBOX ====================
+        const videoLightbox = document.getElementById('video-lightbox');
+        let videoPlaying = true;
+        let videoMuted = false;
+        let videoProgressInterval;
+
+        function openVideoLightbox(card) {
+            const thumb = card.querySelector('img');
+            const title = card.dataset.videoTitle;
+            document.getElementById('vp-img').src = thumb.src;
+            document.getElementById('video-title').textContent = title;
+            videoLightbox.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            videoPlaying = true;
+            videoMuted = false;
+            document.getElementById('vp-play-btn').innerHTML = '<i class="fas fa-pause"></i>';
+            document.getElementById('vp-volume-icon').className = 'fas fa-volume-high';
+            startVideoProgress();
+        }
+
+        function closeVideoLightbox() {
+            videoLightbox.classList.remove('open');
+            document.body.style.overflow = '';
+            stopVideoProgress();
+        }
+
+        videoLightbox.addEventListener('click', (e) => {
+            if (e.target === videoLightbox) closeVideoLightbox();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (!videoLightbox.classList.contains('open')) return;
+            if (e.key === 'Escape') closeVideoLightbox();
+        });
+
+        function toggleVideoPlay() {
+            videoPlaying = !videoPlaying;
+            document.getElementById('vp-play-btn').innerHTML = videoPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
+            if (videoPlaying) startVideoProgress(); else stopVideoProgress();
+        }
+
+        function toggleVideoMute() {
+            videoMuted = !videoMuted;
+            document.getElementById('vp-volume-icon').className = videoMuted ? 'fas fa-volume-xmark' : 'fas fa-volume-high';
+        }
+
+        function toggleVideoFullscreen() {
+            showToast('Fullscreen mode — connect a real video source', 'success');
+        }
+
+        let vpFillWidth = 35;
+        function startVideoProgress() {
+            stopVideoProgress();
+            videoProgressInterval = setInterval(() => {
+                if (videoPlaying) {
+                    vpFillWidth += 0.15;
+                    if (vpFillWidth >= 100) vpFillWidth = 0;
+                    document.getElementById('vp-fill').style.width = vpFillWidth + '%';
+                    const totalSeconds = 204;
+                    const currentSeconds = Math.floor(totalSeconds * vpFillWidth / 100);
+                    const cm = Math.floor(currentSeconds / 60);
+                    const cs = currentSeconds % 60;
+                    document.getElementById('vp-time').textContent = `${cm}:${cs.toString().padStart(2, '0')} / 3:24`;
+                }
+            }, 100);
+        }
+
+        function stopVideoProgress() {
+            if (videoProgressInterval) clearInterval(videoProgressInterval);
+        }
+
+        // Click on progress bar to seek
+        document.getElementById('vp-progress').addEventListener('click', (e) => {
+            const rect = e.currentTarget.getBoundingClientRect();
+            vpFillWidth = ((e.clientX - rect.left) / rect.width) * 100;
+            document.getElementById('vp-fill').style.width = vpFillWidth + '%';
+        });
+
+        // ==================== TESTIMONIALS CAROUSEL ====================
+        const track = document.getElementById('testimonial-track');
+        const slides = track.querySelectorAll('.testimonial-slide');
+        const dotsContainer = document.getElementById('testimonial-dots');
+        let currentSlide = 0;
+        let autoplayInterval;
+
+        // Create dots
+        slides.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.className = 'testimonial-dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('aria-label', `Go to testimonial ${i + 1}`);
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+        });
+
+        function goToSlide(index) {
+            currentSlide = index;
+            track.style.transform = `translateX(-${index * 100}%)`;
+            dotsContainer.querySelectorAll('.testimonial-dot').forEach((d, i) => {
+                d.classList.toggle('active', i === index);
+            });
+        }
+
+        function nextSlide() {
+            goToSlide((currentSlide + 1) % slides.length);
+        }
+
+        function startAutoplay() {
+            autoplayInterval = setInterval(nextSlide, 5000);
+        }
+
+        function stopAutoplay() {
+            clearInterval(autoplayInterval);
+        }
+
+        startAutoplay();
+        dotsContainer.addEventListener('mouseenter', stopAutoplay);
+        dotsContainer.addEventListener('mouseleave', startAutoplay);
+
+        // Touch/swipe for testimonials
+        let touchStartX = 0;
+        let touchEndX = 0;
+        track.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; stopAutoplay(); }, { passive: true });
+        track.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) goToSlide(Math.min(currentSlide + 1, slides.length - 1));
+                else goToSlide(Math.max(currentSlide - 1, 0));
+            }
+            startAutoplay();
+        }, { passive: true });
+
+        // ==================== CONTACT FORM ====================
+        const contactForm = document.getElementById('contact-form');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let valid = true;
+
+            const name = document.getElementById('name');
+            const email = document.getElementById('email');
+            const message = document.getElementById('message');
+            const nameError = document.getElementById('name-error');
+            const emailError = document.getElementById('email-error');
+            const messageError = document.getElementById('message-error');
+
+            // Reset errors
+            [nameError, emailError, messageError].forEach(el => el.classList.add('hidden'));
+            [name, email, message].forEach(el => el.style.borderColor = '#E7E5E4');
+
+            if (!name.value.trim()) {
+                nameError.classList.remove('hidden');
+                name.style.borderColor = '#E76F51';
+                valid = false;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email.value.trim())) {
+                emailError.classList.remove('hidden');
+                email.style.borderColor = '#E76F51';
+                valid = false;
+            }
+
+            if (!message.value.trim()) {
+                messageError.classList.remove('hidden');
+                message.style.borderColor = '#E76F51';
+                valid = false;
+            }
+
+            if (valid) {
+                showToast('Message sent successfully! I\'ll get back to you soon.', 'success');
+                contactForm.reset();
+            } else {
+                showToast('Please fill in all required fields.', 'error');
+            }
+        });
+
+        // ==================== TOAST ====================
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = type + ' show';
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3500);
+        }
+
+        // ==================== SMOOTH SCROLL (fallback) ====================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    const offset = 80;
+                    const top = target.getBoundingClientRect().top + window.scrollY - offset;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
