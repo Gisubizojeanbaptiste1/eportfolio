@@ -45,6 +45,31 @@
         .nav-link:hover::after, .nav-link.active::after { width: 100%; }
         .nav-link.active { color: #2D6A4F !important; }
 
+        /* Dropdown */
+        .nav-dropdown { position: relative; }
+        .nav-dropdown-trigger { display: flex; align-items: center; gap: 5px; cursor: pointer; position: relative; transition: color 0.3s; }
+        .nav-dropdown-trigger::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1.5px; background: #2D6A4F; transition: width 0.3s ease; }
+        .nav-dropdown-trigger:hover::after { width: 100%; }
+        .nav-dropdown-trigger .dd-arrow { font-size: 0.6rem; transition: transform 0.3s ease; }
+        .nav-dropdown:hover .dd-arrow { transform: rotate(180deg); }
+        .nav-dropdown-menu {
+            position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(8px);
+            min-width: 220px; background: #fff; border-radius: 10px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.12); padding: 8px 0;
+            opacity: 0; visibility: hidden; transition: all 0.3s ease; margin-top: 16px; z-index: 100;
+        }
+        .nav-dropdown:hover .nav-dropdown-menu { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+        .nav-dropdown-menu::before {
+            content: ''; position: absolute; top: -6px; left: 50%; transform: translateX(-50%) rotate(45deg);
+            width: 12px; height: 12px; background: #fff;
+            box-shadow: -2px -2px 4px rgba(0,0,0,0.03);
+        }
+        .dd-item { display: block; padding: 10px 24px; font-size: 0.85rem; color: #44403C; text-decoration: none; transition: all 0.2s ease; }
+        .dd-item:hover { background: #F5F5F4; color: #2D6A4F; padding-left: 28px; }
+        .dd-item i { margin-right: 8px; color: #A8A29E; font-size: 0.75rem; transition: color 0.2s; }
+        .dd-item:hover i { color: #2D6A4F; }
+        #navbar.scrolled .nav-dropdown-trigger { color: #44403C !important; }
+
         /* Hamburger */
         .hamburger { width: 28px; height: 20px; position: relative; cursor: pointer; z-index: 60; }
         .hamburger span { position: absolute; left: 0; width: 100%; height: 1.5px; background: #fff; transition: all 0.35s cubic-bezier(0.76, 0, 0.24, 1); }
@@ -59,14 +84,25 @@
         /* Mobile Menu */
         #mobile-menu { position: fixed; inset: 0; z-index: 45; background: rgba(28,25,23,0.97); backdrop-filter: blur(20px); display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.5s cubic-bezier(0.76, 0, 0.24, 1); }
         #mobile-menu.open { opacity: 1; visibility: visible; }
-        .mobile-link { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: #fff; opacity: 0; transform: translateY(30px); transition: all 0.4s ease; }
+        .mobile-link { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: #fff; opacity: 0; transform: translateY(30px); transition: all 0.4s ease; display: block; }
         #mobile-menu.open .mobile-link { opacity: 1; transform: translateY(0); }
         #mobile-menu.open .mobile-link:nth-child(1) { transition-delay: 0.1s; }
         #mobile-menu.open .mobile-link:nth-child(2) { transition-delay: 0.2s; }
         #mobile-menu.open .mobile-link:nth-child(3) { transition-delay: 0.3s; }
         #mobile-menu.open .mobile-link:nth-child(4) { transition-delay: 0.4s; }
         #mobile-menu.open .mobile-link:nth-child(5) { transition-delay: 0.5s; }
+        #mobile-menu.open .mobile-link:nth-child(6) { transition-delay: 0.55s; }
         .mobile-link:hover { color: #40916C; }
+        .mobile-sub-links { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+        .mobile-sub-links.open { max-height: 200px; }
+        .mobile-sub-link {
+            font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 300;
+            color: rgba(255,255,255,0.5); display: block; padding: 4px 0 4px 24px;
+            transition: all 0.3s ease; text-decoration: none;
+        }
+        .mobile-sub-link:hover { color: #40916C; }
+        .mobile-dd-arrow { font-size: 1.2rem; margin-left: 8px; transition: transform 0.3s ease; display: inline-block; }
+        .mobile-dd-arrow.rotated { transform: rotate(180deg); }
 
         /* Hero */
         .hero-bg { transition: transform 0.1s linear; will-change: transform; }
@@ -94,26 +130,66 @@
 
         /* Masonry */
         .masonry { column-count: 3; column-gap: 16px; }
-        .masonry-item { break-inside: avoid; margin-bottom: 16px; position: relative; overflow: hidden; border-radius: 6px; cursor: pointer; }
+        .masonry-item { break-inside: avoid; margin-bottom: 16px; position: relative; overflow: hidden; border-radius: 6px; cursor: pointer; opacity: 1; transform: scale(1); }
         .masonry-item img { width: 100%; display: block; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
         .masonry-item:hover img { transform: scale(1.05); }
-        .masonry-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(28,25,23,0.7) 0%, transparent 50%); opacity: 0; transition: opacity 0.4s ease; display: flex; align-items: flex-end; padding: 20px; }
-        .masonry-item:hover .masonry-overlay { opacity: 1; }
-        .masonry-overlay h4 { color: #fff; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 400; transform: translateY(10px); transition: transform 0.4s ease; }
-        .masonry-overlay span { color: #A8A29E; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; transform: translateY(10px); transition: transform 0.4s ease 0.05s; }
-        .masonry-item:hover .masonry-overlay h4,
-        .masonry-item:hover .masonry-overlay span { transform: translateY(0); }
-        .masonry-item.hidden { display: none; }
-        .masonry-item.show { animation: masonryIn 0.5s ease forwards; }
-        @keyframes masonryIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 
+        /* Shared Hover Overlay — used by both portfolio & leadership */
+        .hover-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(28,25,23,0.75) 0%, rgba(28,25,23,0.15) 45%, transparent 100%);
+            opacity: 0; transition: opacity 0.4s ease;
+            display: flex; align-items: flex-end; padding: 20px;
+            pointer-events: none;
+        }
+        .masonry-item:hover .hover-overlay,
+        .leadership-img-main:hover .hover-overlay,
+        .grid-item:hover .hover-overlay { opacity: 1; }
+        .hover-overlay h4 { color: #fff; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 400; transform: translateY(10px); transition: transform 0.4s ease; }
+        .hover-overlay span { color: #A8A29E; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; transform: translateY(10px); transition: transform 0.4s ease 0.05s; }
+        .masonry-item:hover .hover-overlay h4,
+        .masonry-item:hover .hover-overlay span,
+        .leadership-img-main:hover .hover-overlay h4,
+        .leadership-img-main:hover .hover-overlay span,
+        .grid-item:hover .hover-overlay h4,
+        .grid-item:hover .hover-overlay span { transform: translateY(0); }
+        .grid-item .hover-overlay h4 { font-size: 1rem; }
+
+        .masonry-item.hidden { display: none; }
+        .masonry-item.filtering-in { animation: masonryIn 0.5s ease forwards; }
+        @keyframes masonryIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
         @media (max-width: 1024px) { .masonry { column-count: 2; } }
         @media (max-width: 640px) { .masonry { column-count: 1; } }
 
         /* Filter Buttons */
-        .filter-btn { padding: 8px 24px; border-radius: 100px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; border: 1px solid #E7E5E4; color: #78716C; background: transparent; cursor: pointer; transition: all 0.3s ease; }
+        .filter-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+        .filter-scroll::-webkit-scrollbar { display: none; }
+        .filter-btn { padding: 8px 18px; border-radius: 100px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; border: 1px solid #E7E5E4; color: #78716C; background: transparent; cursor: pointer; transition: all 0.3s ease; white-space: nowrap; flex-shrink: 0; }
         .filter-btn:hover { border-color: #2D6A4F; color: #2D6A4F; }
         .filter-btn.active { background: #2D6A4F; color: #fff; border-color: #2D6A4F; }
+
+        /* Leadership Tabs */
+        .leadership-tab { padding: 12px 32px; border-radius: 100px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; border: 1.5px solid #E7E5E4; color: #78716C; background: transparent; cursor: pointer; transition: all 0.3s ease; }
+        .leadership-tab:hover { border-color: #2D6A4F; color: #2D6A4F; }
+        .leadership-tab.active { background: #2D6A4F; color: #fff; border-color: #2D6A4F; }
+        .leadership-panel { display: none; animation: fadeTabIn 0.5s ease forwards; }
+        .leadership-panel.active { display: block; }
+        @keyframes fadeTabIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Leadership Image Grid */
+        .leadership-img-main { width: 100%; border-radius: 10px; overflow: hidden; position: relative; cursor: pointer; }
+        .leadership-img-main img { width: 100%; display: block; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        .leadership-img-main:hover img { transform: scale(1.05); }
+        .leadership-img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+        .leadership-img-grid .grid-item { border-radius: 8px; overflow: hidden; position: relative; cursor: pointer; }
+        .leadership-img-grid .grid-item img { width: 100%; display: block; transition: transform 0.5s ease; }
+        .leadership-img-grid .grid-item:hover img { transform: scale(1.06); }
+
+        /* Quote Block */
+        .quote-block { position: relative; padding: 28px 32px; border-radius: 10px; margin: 28px 0; }
+        .quote-block::before { content: '\201C'; position: absolute; top: -5px; left: 20px; font-family: 'Cormorant Garamond', serif; font-size: 5rem; line-height: 1; opacity: 0.15; }
+        .quote-block p { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-style: italic; line-height: 1.7; }
+        .quote-block .quote-author { font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-style: normal; text-transform: uppercase; letter-spacing: 0.12em; margin-top: 12px; opacity: 0.7; }
 
         /* Video Cards */
         .video-card { position: relative; overflow: hidden; border-radius: 8px; cursor: pointer; }
@@ -205,6 +281,19 @@
             <a href="#home" class="nav-link text-white text-sm tracking-wide font-medium active">Home</a>
             <a href="#about" class="nav-link text-white text-sm tracking-wide font-medium">About</a>
             <a href="#projects" class="nav-link text-white text-sm tracking-wide font-medium">Portfolio</a>
+            <div class="nav-dropdown">
+                <span class="nav-dropdown-trigger text-white text-sm tracking-wide font-medium">
+                    Leadership <i class="fas fa-chevron-down dd-arrow"></i>
+                </span>
+                <div class="nav-dropdown-menu">
+                    <a href="#leadership" class="dd-item" onclick="switchLeadershipTab('media')">
+                        <i class="fas fa-camera"></i> Media Leadership
+                    </a>
+                    <a href="#leadership" class="dd-item" onclick="switchLeadershipTab('society')">
+                        <i class="fas fa-users"></i> Society Leadership
+                    </a>
+                </div>
+            </div>
             <a href="#testimonials" class="nav-link text-white text-sm tracking-wide font-medium">Testimonials</a>
             <a href="#contact" class="nav-link text-white text-sm tracking-wide font-medium">Contact</a>
         </div>
@@ -219,6 +308,13 @@
             <a href="#home" class="mobile-link">Home</a>
             <a href="#about" class="mobile-link">About</a>
             <a href="#projects" class="mobile-link">Portfolio</a>
+            <a href="#leadership" class="mobile-link" id="mobile-leadership-toggle" style="cursor:pointer;">
+                Leadership <span class="mobile-dd-arrow" id="mobile-dd-arrow"><i class="fas fa-chevron-down"></i></span>
+            </a>
+            <div class="mobile-sub-links" id="mobile-leadership-sub">
+                <a href="#leadership" class="mobile-sub-link" onclick="switchLeadershipTab('media')">Media Leadership</a>
+                <a href="#leadership" class="mobile-sub-link" onclick="switchLeadershipTab('society')">Society Leadership</a>
+            </div>
             <a href="#testimonials" class="mobile-link">Testimonials</a>
             <a href="#contact" class="mobile-link">Contact</a>
         </div>
@@ -258,20 +354,25 @@
                     </div>
                     <div class="reveal delay-1">
                         <div class="green-line mt-6 mb-6"></div>
-                        <p class="text-ink-mid leading-relaxed mb-4">I’m a photographer with over two years of experience, developed through my work at Agahozo Shalom Youth Village and by capturing weddings and a variety of events. </p>
+                        <p class="text-ink-mid leading-relaxed mb-4">I'm a photographer, videographer, livestreamer, photo-editor, video-editor with over two years of experience, developed through my work at Agahozo Shalom Youth Village and by capturing weddings and a variety of events. I have skills in camera operation, lighting setup, live streaming production, video and photo post-production, storytelling, client communication, and time management. </p>
                         <p class="text-ink-mid leading-relaxed mb-8">My approach focuses on documenting authentic moments and telling stories through natural, meaningful images where every frame is a collaboration between light, emotion and timing.</p>
                     </div>
                     <div class="reveal delay-2">
                         <p class="text-sm font-semibold text-ink-dark uppercase tracking-widest mb-4">Specialties</p>
                         <div class="flex flex-wrap gap-2">
-                            <span class="skill-tag">Portraits</span>
-                            <span class="skill-tag">Travel & Documentary</span>
-                            <span class="skill-tag">Events & Weddings</span>
-                            <span class="skill-tag">Fine Art</span>
-                            <span class="skill-tag">Passport</span>
+                            <span class="skill-tag">PhotoShoot</span>
+                            <span class="skill-tag">Photography</span>
+                            <span class="skill-tag">Videography</span>
+                            <span class="skill-tag">Event Coverage</span>
+                            <span class="skill-tag">Wedding Production</span>
+                            <span class="skill-tag">Live Streaming</span>
+                            <span class="skill-tag">Camera Operation</span>
+                            <span class="skill-tag">Lighting Setup</span>
                             <span class="skill-tag">Photo Editing</span>
-                            <span class="skill-tag">Commercial</span>
                             <span class="skill-tag">Video Editing</span>
+                            <span class="skill-tag">Storytelling</span>
+                            <span class="skill-tag">Client Communication</span>
+                            <span class="skill-tag">Time Management</span>
                         </div>
                     </div>
                     <div class="reveal delay-3 mt-10 flex gap-12">
@@ -295,91 +396,400 @@
             <div class="text-center mb-16">
                 <span class="section-label reveal justify-center">Portfolio</span>
                 <h2 class="reveal delay-1 font-display text-4xl md:text-5xl lg:text-6xl font-light text-ink-black leading-tight">View My Projects</h2>
-                <p class="reveal delay-2 text-ink-mid mt-4 max-w-xl mx-auto">A curated collection of my meaningful projects, spanning portraits, travel, and events.</p>
+                <p class="reveal delay-2 text-ink-mid mt-4 max-w-xl mx-auto">A curated collection of my meaningful projects, spanning portraits, travel, events, and more.</p>
             </div>
 
             <!-- Filter Buttons -->
-            <div class="reveal delay-2 flex flex-wrap justify-center gap-3 mb-12">
+            <div class="reveal delay-2 filter-scroll flex flex-nowrap md:flex-wrap justify-start md:justify-center gap-2 mb-12 pb-2 md:pb-0">
                 <button class="filter-btn active" data-filter="all">All</button>
                 <button class="filter-btn" data-filter="portraits">Portraits</button>
-                <button class="filter-btn" data-filter="travel">Travel</button>
                 <button class="filter-btn" data-filter="events">Events</button>
+                <button class="filter-btn" data-filter="travel">Travel</button>
+                <button class="filter-btn" data-filter="meetings">Meetings</button>
+                <button class="filter-btn" data-filter="nature">Nature</button>
+                <button class="filter-btn" data-filter="mentorship">Mentorship</button>
+                <button class="filter-btn" data-filter="games">Games</button>
+                <button class="filter-btn" data-filter="prayers">Prayers</button>
+                <button class="filter-btn" data-filter="isomo">Isomo</button>
+                <button class="filter-btn" data-filter="music">Music</button>
             </div>
 
             <!-- Masonry Gallery -->
-            <div class="masonry reveal-zoom" id="gallery">
+            <div class="masonry" id="gallery">
                 <!-- Portraits -->
-                <div class="masonry-item show" data-category="portraits" data-index="0">
+                <div class="masonry-item" data-category="portraits" data-index="0">
                     <img src="./images/475648852_17898348387132792_409707442882664904_n.jpg" alt="Happy moments in nature" loading="lazy">
-                    <div class="masonry-overlay"><div><span>Portraits</span><h4>Happy Moments</h4></div></div>
+                    <div class="hover-overlay"><div><span>Portraits</span><h4>Happy Moments</h4></div></div>
                 </div>
-                <div class="masonry-item show" data-category="events" data-index="1">
-                    <img src="./images/singing.jpg" alt="Mountain landscape at dawn" loading="lazy">
-                    <div class="masonry-overlay"><div><span>Events</span><h4>Singing Performance</h4></div></div>
+                <div class="masonry-item" data-category="portraits" data-index="1">
+                    <img src="./images/event.jpg" alt="CEO speech" loading="lazy">
+                    <div class="hover-overlay"><div><span>Portraits</span><h4>CEO Speech</h4></div></div>
                 </div>
-                <div class="masonry-item show" data-category="events" data-index="2">
-                    <img src="./images/violin.jpg" alt="Wedding ceremony moment" loading="lazy">
-                    <div class="masonry-overlay"><div><span>Events</span><h4>Violin Performance</h4></div></div>
+                <div class="masonry-item" data-category="portraits" data-index="2">
+                    <img src="./images/djing.jpg" alt="DJing portrait" loading="lazy">
+                    <div class="hover-overlay"><div><span>Portraits</span><h4>Village Time — DJing</h4></div></div>
                 </div>
-                <div class="masonry-item show" data-category="travel" data-index="3">
-                    <img src="./images/village.jpg" alt="Dramatic portrait silhouette" loading="lazy">
-                    <div class="masonry-overlay"><div><span>Travel</span><h4>Musanze Village</h4></div></div>
+                <div class="masonry-item" data-category="portraits" data-index="3">
+                    <img src="./images/Kwitaizina.jpeg" alt="Kwitizina site" loading="lazy">
+                    <div class="hover-overlay"><div><span>Portraits</span><h4>Kwitizina Site</h4></div></div>
                 </div>
-                <div class="masonry-item show" data-category="events" data-index="4">
-                    <img src="./images/graduation.jpg" alt="Ancient temple corridor" loading="lazy">
-                    <div class="masonry-overlay"><div><span>Events</span><h4>Graduation Ceremony</h4></div></div>
+                <div class="masonry-item" data-category="portraits" data-index="4">
+                    <img src="./images/Musanze.JPG" alt="Hiking volcano portrait" loading="lazy">
+                    <div class="hover-overlay"><div><span>Portraits</span><h4>Hiking Volcano</h4></div></div>
                 </div>
-                <div class="masonry-item show" data-category="travel" data-index="5">
-                    <img src="./images/climbingvolcano.jpg" alt="Concert stage lights" loading="lazy">
-                    <div class="masonry-overlay"><div><span>Travel</span><h4>Climbing Volcano</h4></div></div>
+
+                <!-- Events -->
+                <div class="masonry-item" data-category="events" data-index="5">
+                    <img src="./images/singing.jpg" alt="Singing performance" loading="lazy">
+                    <div class="hover-overlay"><div><span>Events</span><h4>Singing Performance</h4></div></div>
                 </div>
-                <div class="masonry-item show" data-category="portraits" data-index="6">
-                    <img src="./images/event.jpg" alt="Candid street portrait" loading="lazy">
-                    <div class="masonry-overlay"><div><span>Portraits</span><h4>CEO speech</h4></div></div>
+                <div class="masonry-item" data-category="events" data-index="6">
+                    <img src="./images/violin.jpg" alt="Violin performance" loading="lazy">
+                    <div class="hover-overlay"><div><span>Events</span><h4>Violin Performance</h4></div></div>
                 </div>
-                <div class="masonry-item show" data-category="events" data-index="7">
-                    <img src="./images/livestreaming.jpg" alt="Coastal village panorama" loading="lazy">
-                    <div class="masonry-overlay"><div><span>Events</span><h4>Village Time</h4></div></div>
+                <div class="masonry-item" data-category="events" data-index="7">
+                    <img src="./images/graduation.jpg" alt="Graduation ceremony" loading="lazy">
+                    <div class="hover-overlay"><div><span>Events</span><h4>Graduation Ceremony</h4></div></div>
                 </div>
-                <div class="masonry-item show" data-category="travel" data-index="8">
-                    <img src="./images/waterfall.jpeg" alt="First dance at reception" loading="lazy">
-                    <div class="masonry-overlay"><div><span>Travel</span><h4>Water Fall</h4></div></div>
+                <div class="masonry-item" data-category="events" data-index="8">
+                    <img src="./images/livestreaming.jpg" alt="Village time" loading="lazy">
+                    <div class="hover-overlay"><div><span>Events</span><h4>Village Time</h4></div></div>
                 </div>
-                <div class="masonry-item show" data-category="portraits" data-index="9">
-                    <img src="./images/djing.jpg" alt="Environmental portrait" loading="lazy">
-                    <div class="masonry-overlay"><div><span>Portraits</span><h4>Village Time #djing</h4></div></div>
+                <div class="masonry-item" data-category="events" data-index="9">
+                    <img src="./images/band.JPG" alt="Band performance" loading="lazy">
+                    <div class="hover-overlay"><div><span>Events</span><h4>Band Performance</h4></div></div>
                 </div>
-                <div class="masonry-item show" data-category="events" data-index="10">
-                    <img src="./images/band.JPG" alt="Desert sand dunes" loading="lazy">
-                    <div class="masonry-overlay"><div><span>Events</span><h4>Band Performance</h4></div></div>
+                <div class="masonry-item" data-category="events" data-index="10">
+                    <img src="./images/paintings.JPG" alt="Graduation ceremony paintings" loading="lazy">
+                    <div class="hover-overlay"><div><span>Events</span><h4>Graduation Ceremony</h4></div></div>
                 </div>
-                <div class="masonry-item show" data-category="events" data-index="11">
-                    <img src="./images/paintings.JPG" alt="Gala dinner atmosphere" loading="lazy">
-                    <div class="masonry-overlay"><div><span>Events</span><h4>Graduation Ceremony</h4></div></div>
+                <div class="masonry-item" data-category="events" data-index="11">
+                    <img src="./images/climbingvolcano.jpg" alt="Climbing volcano event" loading="lazy">
+                    <div class="hover-overlay"><div><span>Events</span><h4>Climbing Volcano</h4></div></div>
                 </div>
-                <div class="masonry-item show" data-category="portraits" data-index="12">
-                    <img src="./images/Kwitaizina.jpeg" alt="Studio portrait with window light" loading="lazy">
-                    <div class="masonry-overlay"><div><span>Portraits</span><h4>Kwitizina Site</h4></div></div>
+
+                <!-- Travel -->
+                <div class="masonry-item" data-category="travel" data-index="12">
+                    <img src="./images/village.jpg" alt="Musanze village" loading="lazy">
+                    <div class="hover-overlay"><div><span>Travel</span><h4>Musanze Village</h4></div></div>
                 </div>
-                <div class="masonry-item show" data-category="travel" data-index="13">
-                    <img src="https://picsum.photos/seed/travel-b5/400/350.jpg" alt="City skyline at blue hour" loading="lazy">
-                    <div class="masonry-overlay"><div><span>Travel</span><h4>Mountain Landscape</h4></div></div>
+                <div class="masonry-item" data-category="travel" data-index="13">
+                    <img src="./images/climbingvolcano.jpg" alt="Climbing volcano" loading="lazy">
+                    <div class="hover-overlay"><div><span>Travel</span><h4>Climbing Volcano</h4></div></div>
                 </div>
-                <div class="masonry-item show" data-category="events" data-index="14">
-                    <img src="./images/climbingvolcano.jpg" alt="Festival celebration crowd" loading="lazy">
-                    <div class="masonry-overlay"><div><span>Events</span><h4>Climbing Volcano</h4></div></div>
+                <div class="masonry-item" data-category="travel" data-index="14">
+                    <img src="./images/waterfall.jpeg" alt="Waterfall" loading="lazy">
+                    <div class="hover-overlay"><div><span>Travel</span><h4>Water Fall</h4></div></div>
                 </div>
-                <div class="masonry-item show" data-category="portraits" data-index="15">
-                    <img src="./images/Musanze.JPG" alt="Artistic double exposure portrait" loading="lazy">
-                    <div class="masonry-overlay"><div><span>Portraits</span><h4>Hiking Volcano</h4></div></div>
+                <div class="masonry-item" data-category="travel" data-index="15">
+                    <img src="https://picsum.photos/seed/travel-b5/400/350.jpg" alt="Mountain landscape" loading="lazy">
+                    <div class="hover-overlay"><div><span>Travel</span><h4>Mountain Landscape</h4></div></div>
                 </div>
-                <div class="masonry-item show" data-category="travel" data-index="16">
+                <div class="masonry-item" data-category="travel" data-index="16">
                     <img src="./images/volcano.jpg" alt="Volcano landscape" loading="lazy">
-                    <div class="masonry-overlay"><div><span>Travel</span><h4>Volcano</h4></div></div>
+                    <div class="hover-overlay"><div><span>Travel</span><h4>Volcano</h4></div></div>
                 </div>
-                <div class="masonry-item show" data-category="travel" data-index="17">
-                    <img src="./images/waterfall2.jpeg" alt="Waterfall in the mountains" loading="lazy">
-                    <div class="masonry-overlay"><div><span>Travel</span><h4>Water Fall</h4></div></div>
+                <div class="masonry-item" data-category="travel" data-index="17">
+                    <img src="./images/waterfall2.jpeg" alt="Waterfall in mountains" loading="lazy">
+                    <div class="hover-overlay"><div><span>Travel</span><h4>Water Fall</h4></div></div>
+                </div>
+
+                <!-- Meetings -->
+                <div class="masonry-item" data-category="meetings" data-index="18">
+                    <img src="./images/meetings/blenda.jpg" alt="Board meeting" loading="lazy">
+                    <div class="hover-overlay"><div><span>Meetings</span><h4>Noting Time</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="meetings" data-index="19">
+                    <img src="./images/meetings/mentorshi.jpg" alt="Team discussion" loading="lazy">
+                    <div class="hover-overlay"><div><span>Meetings</span><h4>Group Photo</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="meetings" data-index="20">
+                    <img src="./images/meetings/stella.jpg" alt="principal" loading="lazy">
+                    <div class="hover-overlay"><div><span>Meetings</span><h4>Country Director ASYV</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="meetings" data-index="21">
+                    <img src="./images/meetings/mentorshipcancer_23.jpg" alt="focusing time" loading="lazy">
+                    <div class="hover-overlay"><div><span>Meetings</span><h4>Focusing Time</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="meetings" data-index="22">
+                    <img src="./images/meetings/simy the cancer_39.jpg" alt="laughter after discussion" loading="lazy">
+                    <div class="hover-overlay"><div><span>Meetings</span><h4>Laughter After Discussion</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="meetings" data-index="23">
+                    <img src="./images/meetings/simy the cancer_43.jpg" alt="covering every edge" loading="lazy">
+                    <div class="hover-overlay"><div><span>Meetings</span><h4>Covering Every Edge</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="meetings" data-index="24">
+                    <img src="./images/meetings/students.jpg" alt="laughter after discussion" loading="lazy">
+                    <div class="hover-overlay"><div><span>Meetings</span><h4>Laughter After Discussion</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="meetings" data-index="25">
+                    <img src="./images/meetings/schooland repadministratives.jpg" alt="School administrators and teachers laughing" loading="lazy">
+                    <div class="hover-overlay"><div><span>Meetings</span><h4>School Admin & Teachers Laughter</h4></div></div>
+                </div>
+
+                <!-- Nature -->
+                <div class="masonry-item" data-category="nature" data-index="26">
+                    <img src="./images/nature/nature1(kwitaizina).jpg" alt="Lush greenery" loading="lazy">
+                    <div class="hover-overlay"><div><span>Nature</span><h4>Lush Greenery</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="nature" data-index="27">
+                    <img src="./images/nature/sun1.jpg" alt="Sun rising" loading="lazy">
+                    <div class="hover-overlay"><div><span>Nature</span><h4>Sun Rising</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="nature" data-index="28">
+                    <img src="./images/nature/Volcano1.jpg" alt="Volcano" loading="lazy">
+                    <div class="hover-overlay"><div><span>Nature</span><h4>Volcano</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="nature" data-index="29">
+                    <img src="./images/nature/bird washing.jpg" alt="Bird washing" loading="lazy">
+                    <div class="hover-overlay"><div><span>Nature</span><h4>Bird Washing</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="nature" data-index="30">
+                    <img src="./images/nature/down1.jpg" alt="Sun rising" loading="lazy">
+                    <div class="hover-overlay"><div><span>Nature</span><h4>Sun Rising</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="nature" data-index="31">
+                    <img src="./images/nature/bird.jpg" alt="Bird" loading="lazy">
+                    <div class="hover-overlay"><div><span>Nature</span><h4>Bird</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="nature" data-index="32">
+                    <img src="./images/nature/DSC06712nature_1.jpg" alt="Flower" loading="lazy">
+                    <div class="hover-overlay"><div><span>Nature</span><h4>Flower</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="nature" data-index="33">
+                    <img src="./images/nature/goat.JPG" alt="Goat" loading="lazy">
+                    <div class="hover-overlay"><div><span>Nature</span><h4>Goat</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="nature" data-index="34">
+                    <img src="./images/nature/flower1.jpg" alt="Flower" loading="lazy">
+                    <div class="hover-overlay"><div><span>Nature</span><h4>Flower</h4></div></div>
+                </div>
+
+                <!-- Mentorship -->
+                <div class="masonry-item" data-category="mentorship" data-index="35">
+                    <img src="./images/mentorship/Butaro Visit_127.jpg" alt="Butaro Visit" loading="lazy">
+                    <div class="hover-overlay"><div><span>Mentorship</span><h4>Butaro Visit</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="mentorship" data-index="36">
+                    <img src="./images/mentorship/Butaro Visit_195.JPG" alt="Group Enlightment" loading="lazy">
+                    <div class="hover-overlay"><div><span>Mentorship</span><h4>Group Enlightment</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="mentorship" data-index="37">
+                    <img src="./images/mentorship/Butaro Visit_65.jpg" alt="Group Photo" loading="lazy">
+                    <div class="hover-overlay"><div><span>Mentorship</span><h4>Group Photo</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="mentorship" data-index="38">
+                    <img src="./images/mentorship/DSC01377.jpg" alt="Arrival" loading="lazy">
+                    <div class="hover-overlay"><div><span>Mentorship</span><h4>Arrival</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="mentorship" data-index="39">
+                    <img src="./images/mentorship/liquidnet.jpg" alt="Games Activity" loading="lazy">
+                    <div class="hover-overlay"><div><span>Mentorship</span><h4>Games Activity</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="mentorship" data-index="40">
+                    <img src="./images/mentorship/Trainer.jpg" alt="Group mentorship" loading="lazy">
+                    <div class="hover-overlay"><div><span>Mentorship</span><h4>The Trainer</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="mentorship" data-index="41">
+                    <img src="./images/mentorship/wilber.jpg" alt="Teachers Presence" loading="lazy">
+                    <div class="hover-overlay"><div><span>Mentorship</span><h4>Teachers Presence</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="mentorship" data-index="42">
+                    <img src="./images/mentorship/those_64.jpg" alt="Students" loading="lazy">
+                    <div class="hover-overlay"><div><span>Mentorship</span><h4>Students</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="mentorship" data-index="43">
+                    <img src="./images/mentorship/her.jpg" alt="Group mentorship" loading="lazy">
+                    <div class="hover-overlay"><div><span>Mentorship</span><h4>Group Mentorship</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="mentorship" data-index="44">
+                    <img src="./images/mentorship/croudASYV.jpg" alt="Advice Time" loading="lazy">
+                    <div class="hover-overlay"><div><span>Mentorship</span><h4>Advice Time</h4></div></div>
+                </div>
+
+                <!-- Games -->
+                <div class="masonry-item" data-category="games" data-index="45">
+                    <img src="./images/games/aewzxc_147.jpg" alt="Throw-in Ball" loading="lazy">
+                    <div class="hover-overlay"><div><span>Games</span><h4>Throw-in Ball</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="games" data-index="46">
+                    <img src="./images/games/ball_5.jpg" alt="Dunk" loading="lazy">
+                    <div class="hover-overlay"><div><span>Games</span><h4>Dunk</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="games" data-index="47">
+                    <img src="./images/games/ball_45.jpg" alt="winners" loading="lazy">
+                    <div class="hover-overlay"><div><span>Games</span><h4>Winners</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="games" data-index="48">
+                    <img src="./images/games/ball_82.jpg" alt="scanning pitch" loading="lazy">
+                    <div class="hover-overlay"><div><span>Games</span><h4>Scanning pitch</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="games" data-index="49">
+                    <img src="./images/games/basketball.jpg" alt="Ready to Pass" loading="lazy">
+                    <div class="hover-overlay"><div><span>Games</span><h4>Ready to Pass</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="games" data-index="50">
+                    <img src="./images/games/aewzxc_75.JPG" alt="Header mid-air" loading="lazy">
+                    <div class="hover-overlay"><div><span>Games</span><h4>Header mid-air</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="games" data-index="51">
+                    <img src="./images/games/aewzxc_39.JPG" alt="save" loading="lazy">
+                    <div class="hover-overlay"><div><span>Games</span><h4>Save</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="games" data-index="52">
+                    <img src="./images/games/aewzxc_81.JPG" alt="Defender" loading="lazy">
+                    <div class="hover-overlay"><div><span>Games</span><h4>Defender</h4></div></div>
+                </div>
+
+                <!-- Prayers -->
+                <div class="masonry-item" data-category="prayers" data-index="53">
+                    <img src="./images/prayers/church_2.JPG" alt="Bible session" loading="lazy">
+                    <div class="hover-overlay"><div><span>Prayers</span><h4>Bible Session</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="prayers" data-index="54">
+                    <img src="./images/prayers/church_7.JPG" alt="Preaching session" loading="lazy">
+                    <div class="hover-overlay"><div><span>Prayers</span><h4>Preaching Session</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="prayers" data-index="55">
+                    <img src="./images/prayers/church_11.JPG" alt="Preaching session" loading="lazy">
+                    <div class="hover-overlay"><div><span>Prayers</span><h4>Preaching Session</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="prayers" data-index="56">
+                    <img src="./images/prayers/church_34.JPG" alt="Meditation moment" loading="lazy">
+                    <div class="hover-overlay"><div><span>Prayers</span><h4>Meditation Moment</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="prayers" data-index="57">
+                    <img src="./images/prayers/church_50.JPG" alt="Worship session" loading="lazy">
+                    <div class="hover-overlay"><div><span>Prayers</span><h4>Worship Session</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="prayers" data-index="58">
+                    <img src="./images/prayers/church_59.JPG" alt="Praising the Lord" loading="lazy">
+                    <div class="hover-overlay"><div><span>Prayers</span><h4>Praising the Lord</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="prayers" data-index="59">
+                    <img src="./images/prayers/church_52.JPG" alt="Worship session" loading="lazy">
+                    <div class="hover-overlay"><div><span>Prayers</span><h4>Worship Session</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="prayers" data-index="60">
+                    <img src="./images/prayers/church_61.JPG" alt="Meditation moment" loading="lazy">
+                    <div class="hover-overlay"><div><span>Prayers</span><h4>Meditation Moment</h4></div></div>
+                </div>
+
+                <!-- Isomo -->
+                <div class="masonry-item" data-category="isomo" data-index="61">
+                    <img src="./images/isomo/isomo circles_1.jpg" alt="picture session" loading="lazy">
+                    <div class="hover-overlay"><div><span>Isomo</span><h4>Picture Session</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="isomo" data-index="62">
+                    <img src="./images/isomo/isomo circles_7.jpg" alt="leaders discussion" loading="lazy">
+                    <div class="hover-overlay"><div><span>Isomo</span><h4>Leaders Discussion</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="isomo" data-index="63">
+                    <img src="./images/isomo/isomo circles_8.jpg" alt="laugher moment" loading="lazy">
+                    <div class="hover-overlay"><div><span>Isomo</span><h4>Laughter Moment</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="isomo" data-index="64">
+                    <img src="./images/isomo/isomo circles_9.jpg" alt="re-meet moment" loading="lazy">
+                    <div class="hover-overlay"><div><span>Isomo</span><h4>Re-meet Moment</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="isomo" data-index="65">
+                    <img src="./images/isomo/isomo circles_17.jpg" alt="into time" loading="lazy">
+                    <div class="hover-overlay"><div><span>Isomo</span><h4>Intro Time</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="isomo" data-index="66">
+                    <img src="./images/isomo/isomo circles_18.jpg" alt="circular rings ceiling" loading="lazy">
+                    <div class="hover-overlay"><div><span>Isomo</span><h4>Circular rings ceiling</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="isomo" data-index="67">
+                    <img src="./images/isomo/isomo circles_21.jpg" alt="dancing session" loading="lazy">
+                    <div class="hover-overlay"><div><span>Isomo</span><h4>Dancing Session</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="isomo" data-index="68">
+                    <img src="./images/isomo/isomo circles_24.jpg" alt="Dancing session" loading="lazy">
+                    <div class="hover-overlay"><div><span>Isomo</span><h4>Dancing Session</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="isomo" data-index="69">
+                    <img src="./images/isomo/isomo circles_28.jpg" alt="In that Moment" loading="lazy">
+                    <div class="hover-overlay"><div><span>Isomo</span><h4>In That Moment</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="isomo" data-index="70">
+                    <img src="./images/isomo/isomo circles_29.jpg" alt="Learning Time" loading="lazy">
+                    <div class="hover-overlay"><div><span>Isomo</span><h4>Learning Time</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="isomo" data-index="71">
+                    <img src="./images/isomo/isomo circles_36.jpg" alt="Getting To know You session" loading="lazy">
+                    <div class="hover-overlay"><div><span>Isomo</span><h4>Getting To Know You Session</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="isomo" data-index="72">
+                    <img src="./images/isomo/isomo circles_35.jpg" alt="Cultural Dancing session" loading="lazy">
+                    <div class="hover-overlay"><div><span>Isomo</span><h4>Cultural Dancing session</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="isomo" data-index="73">
+                    <img src="./images/isomo/isomo_8.jpg" alt="Getting to know everyone" loading="lazy">
+                    <div class="hover-overlay"><div><span>Isomo</span><h4>Getting To know Everyone</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="isomo" data-index="74">
+                    <img src="./images/isomo/isomo_6.jpg" alt="Meditation time" loading="lazy">
+                    <div class="hover-overlay"><div><span>Isomo</span><h4>Meditation time </h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="isomo" data-index="75">
+                    <img src="./images/isomo/isomon_25.jpg" alt="Traditional dance session" loading="lazy">
+                    <div class="hover-overlay"><div><span>Isomo</span><h4>Traditional Dance Session</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="isomo" data-index="76">
+                    <img src="./images/isomo/isomon_27.jpg" alt="Traditional dance session" loading="lazy">
+                    <div class="hover-overlay"><div><span>Isomo</span><h4>Traditional Dance Session</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="isomo" data-index="77">
+                    <img src="./images/isomo/isomon_28.jpg" alt="Traditional dance session" loading="lazy">
+                    <div class="hover-overlay"><div><span>Isomo</span><h4>Traditional Dance Session</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="isomo" data-index="78">
+                    <img src="./images/isomo/isomon_30.jpg" alt="Teaching Time" loading="lazy">
+                    <div class="hover-overlay"><div><span>Isomo</span><h4>Teaching Time</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="isomo" data-index="79">
+                    <img src="./images/isomo/isomon_19.jpg" alt="Sharing Experience With Educators" loading="lazy">
+                    <div class="hover-overlay"><div><span>Isomo</span><h4>Sharing Experience With Educators</h4></div></div>
+                </div>
+
+                <!-- Music -->
+                <div class="masonry-item" data-category="music" data-index="80">
+                    <img src="./images/music/besties_1.jpg" alt="Laughter Time" loading="lazy">
+                    <div class="hover-overlay"><div><span>Music</span><h4>Laughter Time</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="music" data-index="81">
+                    <img src="./images/music/besties_2.jpg" alt="Pianist Time" loading="lazy">
+                    <div class="hover-overlay"><div><span>Music</span><h4>Pianist Time</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="music" data-index="82">
+                    <img src="./images/music/lucky_1.jpg" alt="djing performance" loading="lazy">
+                    <div class="hover-overlay"><div><span>Music</span><h4>Djing Performance</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="music" data-index="83">
+                    <img src="./images/music/simy_6.jpg" alt="Live performance" loading="lazy">
+                    <div class="hover-overlay"><div><span>Music</span><h4>Live Performance</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="music" data-index="84">
+                    <img src="./images/music/simy_10.jpg" alt="Live music performance" loading="lazy">
+                    <div class="hover-overlay"><div><span>Music</span><h4>Live Performance</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="music" data-index="85">
+                    <img src="./images/music/simy_26.jpg" alt="Giving my all" loading="lazy">
+                    <div class="hover-overlay"><div><span>Music</span><h4>Giving My All</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="music" data-index="86">
+                    <img src="./images/music/simy_66.jpg" alt="Requesting live band my drill" loading="lazy">
+                    <div class="hover-overlay"><div><span>Music</span><h4>Requesting Live Band my Drill</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="music" data-index="87">
+                    <img src="./images/music/simy_114.jpg" alt="vibing quietly" loading="lazy">
+                    <div class="hover-overlay"><div><span>Music</span><h4>Vibing Quietly</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="music" data-index="88">
+                    <img src="./images/music/simy_116.jpg" alt="watching performance" loading="lazy">
+                    <div class="hover-overlay"><div><span>Music</span><h4>Watching Performance</h4></div></div>
                 </div>
             </div>
 
@@ -413,6 +823,133 @@
         </div>
     </section>
 
+    <!-- Leadership Section -->
+    <section id="leadership" class="py-24 md:py-36 bg-surface-white">
+        <div class="max-w-6xl mx-auto px-6 md:px-12">
+            <div class="text-center mb-16">
+                <span class="section-label reveal justify-center">Leadership</span>
+                <h2 class="reveal delay-1 font-display text-4xl md:text-5xl lg:text-6xl font-light text-ink-black leading-tight">My Leadership Journey</h2>
+                <p class="reveal delay-2 text-ink-mid mt-4 max-w-xl mx-auto">Guiding with purpose — in media and in society.</p>
+            </div>
+
+            <!-- Tab Buttons -->
+            <div class="flex justify-center gap-4 mb-14 reveal delay-2">
+                <button class="leadership-tab active" data-tab="media" onclick="switchLeadershipTab('media')">Media Leadership</button>
+                <button class="leadership-tab" data-tab="society" onclick="switchLeadershipTab('society')">Society Leadership</button>
+            </div>
+
+            <!-- Media Leadership Panel -->
+            <div class="leadership-panel active" id="panel-media">
+                <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-start">
+                    <!-- Left: Images with hover overlays -->
+                    <div class="reveal-left">
+                        <div class="leadership-img-main shadow-lg">
+                            <img src="https://picsum.photos/seed/media-leadership/600/400.jpg" alt="Leading a media team on set" loading="lazy">
+                            <div class="hover-overlay"><div><span>Media Leadership</span><h4>Directing on Set</h4></div></div>
+                        </div>
+                        <div class="leadership-img-grid">
+                            <div class="grid-item shadow-md">
+                                <img src="https://picsum.photos/seed/media-camera-dir/300/220.jpg" alt="Directing a photoshoot" loading="lazy">
+                                <div class="hover-overlay"><div><span>Media</span><h4>Photoshoot Direction</h4></div></div>
+                            </div>
+                            <div class="grid-item shadow-md">
+                                <img src="https://picsum.photos/seed/media-edit-team/300/220.jpg" alt="Editing session with team" loading="lazy">
+                                <div class="hover-overlay"><div><span>Media</span><h4>Team Editing Session</h4></div></div>
+                            </div>
+                            <div class="grid-item shadow-md">
+                                <img src="https://picsum.photos/seed/media-event-cov/300/220.jpg" alt="Covering a live event" loading="lazy">
+                                <div class="hover-overlay"><div><span>Media</span><h4>Live Event Coverage</h4></div></div>
+                            </div>
+                            <div class="grid-item shadow-md">
+                                <img src="https://picsum.photos/seed/media-briefing/300/220.jpg" alt="Creative briefing" loading="lazy">
+                                <div class="hover-overlay"><div><span>Media</span><h4>Creative Briefing</h4></div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Right: Text + Quotes -->
+                    <div class="reveal-right">
+                        <h3 class="font-display text-3xl md:text-4xl font-light text-ink-black leading-tight mb-6">Leading Through the Lens</h3>
+                        <div class="green-line mb-6" style="background:#E76F51;"></div>
+                        <p class="text-ink-mid leading-relaxed mb-4">As a media leader, I have directed visual storytelling projects that amplify voices and preserve moments of significance. From coordinating photo coverage at major events to mentoring emerging photographers, media leadership is about vision and execution.</p>
+                        <p class="text-ink-mid leading-relaxed mb-6">I believe that powerful imagery can shift perspectives, and leading a media team means ensuring every frame carries intention and impact.</p>
+
+                        <div class="quote-block" style="background: rgba(231,111,81,0.06); border-left: 3px solid #E76F51;">
+                            <p style="color: #44403C;">"The camera is an instrument that teaches people how to see without a camera."</p>
+                            <p class="quote-author" style="color: #E76F51;">— Dorothea Lange, Photojournalist</p>
+                        </div>
+
+                        <div class="flex flex-wrap gap-2 mt-8">
+                            <span class="skill-tag" style="border-color:#F4A261;color:#D4533B;">Visual Direction</span>
+                            <span class="skill-tag" style="border-color:#F4A261;color:#D4533B;">Team Coordination</span>
+                            <span class="skill-tag" style="border-color:#F4A261;color:#D4533B;">Content Strategy</span>
+                            <span class="skill-tag" style="border-color:#F4A261;color:#D4533B;">Mentoring</span>
+                        </div>
+
+                        <div class="quote-block mt-8" style="background: rgba(231,111,81,0.04); border-left: 3px solid rgba(231,111,81,0.3);">
+                            <p style="color: #78716C; font-size: 1.1rem;">"Photography is a way of feeling, of touching, of loving. What you have caught on film is captured forever — it remembers little things, long after you have forgotten everything."</p>
+                            <p class="quote-author" style="color: #A8A29E;">— Aaron Siskind, Photographer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Society Leadership Panel -->
+            <div class="leadership-panel" id="panel-society">
+                <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-start">
+                    <!-- Left: Images with hover overlays -->
+                    <div class="reveal-left">
+                        <div class="leadership-img-main shadow-lg">
+                            <img src="https://picsum.photos/seed/society-leadership/600/400.jpg" alt="Community gathering" loading="lazy">
+                            <div class="hover-overlay"><div><span>Society Leadership</span><h4>Community Gathering</h4></div></div>
+                        </div>
+                        <div class="leadership-img-grid">
+                            <div class="grid-item shadow-md">
+                                <img src="https://picsum.photos/seed/society-youth-talk/300/220.jpg" alt="Youth mentorship conversation" loading="lazy">
+                                <div class="hover-overlay"><div><span>Society</span><h4>Youth Mentorship</h4></div></div>
+                            </div>
+                            <div class="grid-item shadow-md">
+                                <img src="https://picsum.photos/seed/society-volunteer/300/220.jpg" alt="Volunteer service day" loading="lazy">
+                                <div class="hover-overlay"><div><span>Society</span><h4>Volunteer Service Day</h4></div></div>
+                            </div>
+                            <div class="grid-item shadow-md">
+                                <img src="https://picsum.photos/seed/society-community-circle/300/220.jpg" alt="Community circle discussion" loading="lazy">
+                                <div class="hover-overlay"><div><span>Society</span><h4>Community Circle</h4></div></div>
+                            </div>
+                            <div class="grid-item shadow-md">
+                                <img src="https://picsum.photos/seed/society-team-build/300/220.jpg" alt="Team building activity" loading="lazy">
+                                <div class="hover-overlay"><div><span>Society</span><h4>Team Building</h4></div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Right: Text + Quotes -->
+                    <div class="reveal-right">
+                        <h3 class="font-display text-3xl md:text-4xl font-light text-ink-black leading-tight mb-6">Serving the Community</h3>
+                        <div class="green-line mb-6"></div>
+                        <p class="text-ink-mid leading-relaxed mb-4">Society leadership is rooted in service. Through my involvement at Agahozo Shalom Youth Village and beyond, I have learned that true leadership means listening first, empowering others, and creating spaces where everyone feels seen and valued.</p>
+                        <p class="text-ink-mid leading-relaxed mb-6">Whether organizing community initiatives or simply being present for someone who needs support, I lead with empathy and a deep commitment to uplifting those around me.</p>
+
+                        <div class="quote-block" style="background: rgba(45,106,79,0.06); border-left: 3px solid #2D6A4F;">
+                            <p style="color: #44403C;">"A leader is best when people barely know he exists. When his work is done, his aim fulfilled, they will say: we did it ourselves."</p>
+                            <p class="quote-author" style="color: #2D6A4F;">— Lao Tzu, Philosopher</p>
+                        </div>
+
+                        <div class="flex flex-wrap gap-2 mt-8">
+                            <span class="skill-tag">Community Building</span>
+                            <span class="skill-tag">Youth Empowerment</span>
+                            <span class="skill-tag">Service Projects</span>
+                            <span class="skill-tag">Peer Support</span>
+                        </div>
+
+                        <div class="quote-block mt-8" style="background: rgba(45,106,79,0.04); border-left: 3px solid rgba(45,106,79,0.3);">
+                            <p style="color: #78716C; font-size: 1.1rem;">"The greatest leader is not necessarily the one who does the greatest things, but the one who gets people to do the greatest things."</p>
+                            <p class="quote-author" style="color: #A8A29E;">— Ronald Reagan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Testimonials Section -->
     <section id="testimonials" class="py-24 md:py-36 bg-ink-black relative overflow-hidden">
         <div class="absolute inset-0 opacity-5">
@@ -431,9 +968,9 @@
                         <div class="text-center">
                             <p class="font-display text-2xl md:text-3xl font-light text-white/90 leading-relaxed italic mb-8">"Sandra has an extraordinary ability to capture the essence of a person. Our engagement photos felt effortless — she made us completely forget the camera was there. The results were beyond anything we imagined."</p>
                             <div class="flex items-center justify-center gap-4">
-                                <img src="https://picsum.photos/seed/client-sarah/80/80.jpg" alt="Sarah Mitchell" class="w-12 h-12 rounded-full object-cover" loading="lazy">
+                                <img src="https://picsum.photos/seed/client-sarah/80/80.jpg" alt="Richard Niyibigira" class="w-12 h-12 rounded-full object-cover" loading="lazy">
                                 <div class="text-left">
-                                    <p class="text-white font-medium text-sm">Richard Niyibigira </p>
+                                    <p class="text-white font-medium text-sm">Richard Niyibigira</p>
                                     <p class="text-white/40 text-xs">Former Country Director, Agahozo Shalom Youth Village</p>
                                 </div>
                             </div>
@@ -443,22 +980,22 @@
                         <div class="text-center">
                             <p class="font-display text-2xl md:text-3xl font-light text-white/90 leading-relaxed italic mb-8">"Working with Sandra on our brand campaign was transformative. She didn't just take photos — she told our story with remarkable depth and artistry. Every image became a conversation piece."</p>
                             <div class="flex items-center justify-center gap-4">
-                                <img src="https://picsum.photos/seed/client-marcus/80/80.jpg" alt="Marcus Chen" class="w-12 h-12 rounded-full object-cover" loading="lazy">
+                                <img src="https://picsum.photos/seed/client-marcus/80/80.jpg" alt="Jacque Mbarushimana" class="w-12 h-12 rounded-full object-cover" loading="lazy">
                                 <div class="text-left">
                                     <p class="text-white font-medium text-sm">Jacque Mbarushimana</p>
-                                    <p class="text-white/40 text-xs">Sports coach, Agahozo Shalom Youth Village</p>
+                                    <p class="text-white/40 text-xs">Sports Coach, Agahozo Shalom Youth Village</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="testimonial-slide">
                         <div class="text-center">
-                            <p class="font-display text-2xl md:text-3xl font-light text-white/90 leading-relaxed italic mb-8">"Sandra's documentation for graduated class of 2025 Intwali Grade was consistently sets the standard. Her eye for composition and light creates images that transport readers to another place entirely. A true visual storyteller."</p>
+                            <p class="font-display text-2xl md:text-3xl font-light text-white/90 leading-relaxed italic mb-8">"Sandra's documentation for the graduated class of 2025 Intwali Grade consistently sets the standard. Her eye for composition and light creates images that transport readers to another place entirely. A true visual storyteller."</p>
                             <div class="flex items-center justify-center gap-4">
-                                <img src="https://picsum.photos/seed/client-olivia/80/80.jpg" alt="Olivia Reyes" class="w-12 h-12 rounded-full object-cover" loading="lazy">
+                                <img src="https://picsum.photos/seed/client-olivia/80/80.jpg" alt="Justin Mutangana" class="w-12 h-12 rounded-full object-cover" loading="lazy">
                                 <div class="text-left">
                                     <p class="text-white font-medium text-sm">Justin Mutangana</p>
-                                    <p class="text-white/40 text-xs">IT department , Agahozo Shalom Youth Village</p>
+                                    <p class="text-white/40 text-xs">IT Department, Agahozo Shalom Youth Village</p>
                                 </div>
                             </div>
                         </div>
@@ -467,7 +1004,7 @@
                         <div class="text-center">
                             <p class="font-display text-2xl md:text-3xl font-light text-white/90 leading-relaxed italic mb-8">"The portrait session was one of the most thoughtful creative experiences I've had. Sandra takes time to understand who you are, and the resulting images reflect that deep consideration. Absolutely stunning work."</p>
                             <div class="flex items-center justify-center gap-4">
-                                <img src="https://picsum.photos/seed/client-david/80/80.jpg" alt="David Park" class="w-12 h-12 rounded-full object-cover" loading="lazy">
+                                <img src="https://picsum.photos/seed/client-david/80/80.jpg" alt="Shadrack Niyonzima" class="w-12 h-12 rounded-full object-cover" loading="lazy">
                                 <div class="text-left">
                                     <p class="text-white font-medium text-sm">Shadrack Niyonzima</p>
                                     <p class="text-white/40 text-xs">Student Life Manager, Agahozo Shalom Youth Village</p>
@@ -502,15 +1039,6 @@
                                 <p class="text-ink-dark text-sm font-medium">iradukundasandra44@gmail.com</p>
                             </div>
                         </div>
-                        <!-- <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-full bg-brand-green-muted flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-phone text-brand-green text-sm"></i>
-                            </div>
-                            <div>
-                                <p class="text-xs text-ink-light uppercase tracking-widest">Phone</p>
-                                <p class="text-ink-dark text-sm font-medium">+1 (212) 555-0147</p>
-                            </div>
-                        </div> -->
                         <div class="flex items-center gap-4">
                             <div class="w-10 h-10 rounded-full bg-brand-green-muted flex items-center justify-center flex-shrink-0">
                                 <i class="fas fa-location-dot text-brand-green text-sm"></i>
@@ -559,11 +1087,11 @@
                 <div class="flex items-center gap-6">
                     <a href="#home" class="font-display text-xl font-semibold text-white tracking-wide">Simmy Sandra</a>
                     <span class="text-white/20">|</span>
-                    <p class="text-white/40 text-sm">&copy; 2025 All rights reserved</p>
+                    <p class="text-white/40 text-sm">&copy; 2026 All rights reserved</p>
                 </div>
                 <div class="flex items-center gap-4">
                     <a href="#" class="text-white/40 hover:text-brand-green-light transition-colors text-sm" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-white/40 hover:text-brand-green-light transition-colors text-sm" aria-label="TIKTOK"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="text-white/40 hover:text-brand-green-light transition-colors text-sm" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
                     <a href="#" class="text-white/40 hover:text-brand-green-light transition-colors text-sm" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
                     <a href="#" class="text-white/40 hover:text-brand-green-light transition-colors text-sm" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 </div>
@@ -622,7 +1150,6 @@
         const mobileLinks = document.querySelectorAll('.mobile-link');
         const sections = document.querySelectorAll('section, header');
 
-        // Scroll behavior
         let lastScroll = 0;
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
@@ -632,7 +1159,6 @@
                 navbar.classList.remove('scrolled');
             }
 
-            // Active nav link
             sections.forEach(section => {
                 const top = section.offsetTop - 150;
                 const bottom = top + section.offsetHeight;
@@ -645,7 +1171,6 @@
                 }
             });
 
-            // Back to top
             const btn = document.getElementById('back-to-top');
             if (scrollY > 600) {
                 btn.classList.add('visible');
@@ -653,7 +1178,6 @@
                 btn.classList.remove('visible');
             }
 
-            // Hero parallax
             const heroBg = document.querySelector('.hero-bg');
             if (heroBg && scrollY < window.innerHeight) {
                 heroBg.style.transform = `translateY(${scrollY * 0.3}px)`;
@@ -662,15 +1186,14 @@
             lastScroll = scrollY;
         });
 
-        // Hamburger toggle
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             mobileMenu.classList.toggle('open');
             document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
         });
 
-        // Close mobile menu on link click
         mobileLinks.forEach(link => {
+            if (link.id === 'mobile-leadership-toggle') return;
             link.addEventListener('click', () => {
                 hamburger.classList.remove('active');
                 mobileMenu.classList.remove('open');
@@ -678,7 +1201,26 @@
             });
         });
 
-        // Keyboard support for hamburger
+        const mobileLeadershipToggle = document.getElementById('mobile-leadership-toggle');
+        const mobileLeadershipSub = document.getElementById('mobile-leadership-sub');
+        const mobileDdArrow = document.getElementById('mobile-dd-arrow');
+
+        mobileLeadershipToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            mobileLeadershipSub.classList.toggle('open');
+            mobileDdArrow.classList.toggle('rotated');
+        });
+
+        document.querySelectorAll('.mobile-sub-link').forEach(subLink => {
+            subLink.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('open');
+                mobileLeadershipSub.classList.remove('open');
+                mobileDdArrow.classList.remove('rotated');
+                document.body.style.overflow = '';
+            });
+        });
+
         hamburger.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
@@ -686,10 +1228,27 @@
             }
         });
 
-        // Back to top
         document.getElementById('back-to-top').addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+
+        // ==================== LEADERSHIP TABS ====================
+        function switchLeadershipTab(tabName) {
+            document.querySelectorAll('.leadership-tab').forEach(tab => {
+                tab.classList.toggle('active', tab.dataset.tab === tabName);
+            });
+            document.querySelectorAll('.leadership-panel').forEach(panel => {
+                panel.classList.remove('active');
+            });
+            const targetPanel = document.getElementById('panel-' + tabName);
+            if (targetPanel) {
+                targetPanel.classList.add('active');
+                targetPanel.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-zoom').forEach(el => {
+                    el.classList.remove('revealed');
+                    revealObserver.observe(el);
+                });
+            }
+        }
 
         // ==================== SCROLL REVEAL ====================
         const revealObserver = new IntersectionObserver((entries) => {
@@ -718,10 +1277,16 @@
                 masonryItems.forEach(item => {
                     if (filter === 'all' || item.dataset.category === filter) {
                         item.classList.remove('hidden');
-                        item.classList.add('show');
+                        // Only add animation class if not already visible
+                        if (!item.style.opacity || item.style.opacity === '0') {
+                            item.classList.add('filtering-in');
+                            item.addEventListener('animationend', () => {
+                                item.classList.remove('filtering-in');
+                            }, { once: true });
+                        }
                     } else {
                         item.classList.add('hidden');
-                        item.classList.remove('show');
+                        item.classList.remove('filtering-in');
                     }
                 });
             });
@@ -783,7 +1348,6 @@
         lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
         lbImg.addEventListener('click', (e) => { e.stopPropagation(); nextLbImage(); });
 
-        // Keyboard navigation for lightbox
         document.addEventListener('keydown', (e) => {
             if (!lightbox.classList.contains('open')) return;
             if (e.key === 'Escape') closeLightbox();
@@ -862,7 +1426,6 @@
             if (videoProgressInterval) clearInterval(videoProgressInterval);
         }
 
-        // Click on progress bar to seek
         document.getElementById('vp-progress').addEventListener('click', (e) => {
             const rect = e.currentTarget.getBoundingClientRect();
             vpFillWidth = ((e.clientX - rect.left) / rect.width) * 100;
@@ -876,7 +1439,6 @@
         let currentSlide = 0;
         let autoplayInterval;
 
-        // Create dots
         slides.forEach((_, i) => {
             const dot = document.createElement('button');
             dot.className = 'testimonial-dot' + (i === 0 ? ' active' : '');
@@ -909,7 +1471,6 @@
         dotsContainer.addEventListener('mouseenter', stopAutoplay);
         dotsContainer.addEventListener('mouseleave', startAutoplay);
 
-        // Touch/swipe for testimonials
         let touchStartX = 0;
         let touchEndX = 0;
         track.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; stopAutoplay(); }, { passive: true });
@@ -936,7 +1497,6 @@
             const emailError = document.getElementById('email-error');
             const messageError = document.getElementById('message-error');
 
-            // Reset errors
             [nameError, emailError, messageError].forEach(el => el.classList.add('hidden'));
             [name, email, message].forEach(el => el.style.borderColor = '#E7E5E4');
 
@@ -977,7 +1537,7 @@
             }, 3500);
         }
 
-        // ==================== SMOOTH SCROLL (fallback) ====================
+        // ==================== SMOOTH SCROLL ====================
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 const target = document.querySelector(this.getAttribute('href'));
