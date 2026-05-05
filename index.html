@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simy Sandra — Photography</title>
+    <title>Simy Sandra — E-portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -323,13 +323,13 @@
     <!-- Hero Section -->
     <header id="home" class="relative w-full h-screen overflow-hidden">
         <div class="hero-bg absolute inset-0">
-            <img src="https://picsum.photos/seed/cinematic-hero/1920/1080.jpg" alt="Hero background" class="img-cover" loading="eager">
+            <img src="./images/nature/nature1(kwitaizina).jpg" alt="Hero background" class="img-cover" loading="eager">
         </div>
         <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60"></div>
         <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
             <h1 class="hero-content font-display text-5xl sm:text-7xl lg:text-8xl font-light text-white leading-tight tracking-wide">Iradukunda Mahoro Sandra</h1>
             <p class="hero-tagline font-display text-lg sm:text-xl text-white/70 mt-4 font-light italic tracking-wide">Capturing Light & Emotion</p>
-            <a href="#projects" class="hero-cta inline-block mt-10 px-8 py-3.5 bg-brand-orange text-white text-sm font-semibold uppercase tracking-widest rounded-full hover:bg-brand-orange-dark transition-all duration-300 hover:shadow-lg hover:shadow-brand-orange/30 hover:-translate-y-0.5">View Portfolio</a>
+            <a href="#projects" class="hero-cta inline-block mt-10 px-8 py-3.5 bg-brand-green text-white text-sm font-semibold uppercase tracking-widest rounded-full hover:bg-brand-orange transition-all duration-300 hover:shadow-lg hover:shadow-brand-orange hover:-translate-y-0.5">View Portfolio</a>
         </div>
         <div class="scroll-indicator absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
             <span class="text-white/40 text-xs uppercase tracking-widest">Scroll</span>
@@ -798,27 +798,80 @@
                 <div class="text-center mb-12">
                     <span class="section-label reveal justify-center">Behind the Scenes</span>
                     <h2 class="reveal delay-1 font-display text-3xl md:text-4xl font-light text-ink-black">Video Showreel</h2>
+                    <p class="reveal delay-2 text-ink-mid mt-4 max-w-xl mx-auto">Watch my work in action — from portraits to events, see the stories unfold through motion.</p>
                 </div>
                 <div class="grid md:grid-cols-2 gap-6 reveal-zoom delay-2">
-                    <div class="video-card" data-video-title="Portraits — Behind the Lens" onclick="openVideoLightbox(this)">
-                        <img src="https://picsum.photos/seed/vid-thumb1/800/450.jpg" alt="Portraits behind the scenes" loading="lazy">
-                        <div class="absolute inset-0 bg-black/20"></div>
-                        <div class="video-play"><i class="fas fa-play"></i></div>
+
+                    <!-- Video 1 -->
+                    <div class="relative w-full cursor-pointer group video-poster-card" data-video-id="lWsnQ7knJoE" data-video-title="Portfolio Highlight Reel" style="aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.15);">
+                        <img src="https://img.youtube.com/vi/lWsnQ7knJoE/maxresdefault.jpg" alt="Portfolio Highlight Reel" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;">
+                        <div class="absolute inset-0 bg-black/25 transition-opacity duration-300 group-hover:bg-black/15"></div>
+                        <div class="video-play" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 64px; height: 64px; border-radius: 50%; background: rgba(255,255,255,0.95); display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; box-shadow: 0 4px 30px rgba(0,0,0,0.25);">
+                            <i class="fas fa-play" style="color: #2D6A4F; font-size: 1.2rem; margin-left: 3px;"></i>
+                        </div>
                         <div class="absolute bottom-4 left-4 text-white">
-                            <p class="text-sm font-medium">Portraits — Behind the Lens</p>
-                            <p class="text-xs text-white/60 mt-0.5">3:24</p>
+                            <p class="text-sm font-medium">Live singing</p>
+                            <p class="text-xs text-white/60 mt-0.5">Agahozo Shalom Youth Village</p>
                         </div>
                     </div>
-                    <div class="video-card" data-video-title="Travel — Journeys Captured" onclick="openVideoLightbox(this)">
-                        <img src="https://picsum.photos/seed/vid-thumb2/800/450.jpg" alt="Travel behind the scenes" loading="lazy">
-                        <div class="absolute inset-0 bg-black/20"></div>
-                        <div class="video-play"><i class="fas fa-play"></i></div>
+
+                    <!-- Video 2 -->
+                    <div class="relative w-full cursor-pointer group video-poster-card" data-video-id="bXmL04FKBlI" data-video-title="Video Title 2" style="aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.15);">
+                        <img src="https://img.youtube.com/vi/bXmL04FKBlI/maxresdefault.jpg" alt="Video Title 2" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;">
+                        <div class="absolute inset-0 bg-black/25 transition-opacity duration-300 group-hover:bg-black/15"></div>
+                        <div class="video-play" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 64px; height: 64px; border-radius: 50%; background: rgba(255,255,255,0.95); display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; box-shadow: 0 4px 30px rgba(0,0,0,0.25);">
+                            <i class="fas fa-play" style="color: #2D6A4F; font-size: 1.2rem; margin-left: 3px;"></i>
+                        </div>
                         <div class="absolute bottom-4 left-4 text-white">
-                            <p class="text-sm font-medium">Travel — Journeys Captured</p>
-                            <p class="text-xs text-white/60 mt-0.5">4:51</p>
+                            <p class="text-sm font-medium">Kwibuka: Poems of Memory and the 1994 Genocide Against the Tutsi</p>
+                            <p class="text-xs text-white/60 mt-0.5">Agahozo Shalom Youth Village</p>
                         </div>
                     </div>
+
+                    <!-- Video 3 -->
+                    <div class="relative w-full cursor-pointer group video-poster-card" data-video-id="moXfhfcnn2Q" data-video-title="Video Title 3" style="aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.15);">
+                        <img src="https://img.youtube.com/vi/moXfhfcnn2Q/maxresdefault.jpg" alt="Video Title 3" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;">
+                        <div class="absolute inset-0 bg-black/25 transition-opacity duration-300 group-hover:bg-black/15"></div>
+                        <div class="video-play" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 64px; height: 64px; border-radius: 50%; background: rgba(255,255,255,0.95); display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; box-shadow: 0 4px 30px rgba(0,0,0,0.25);">
+                            <i class="fas fa-play" style="color: #2D6A4F; font-size: 1.2rem; margin-left: 3px;"></i>
+                        </div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <p class="text-sm font-medium">Remarks From The Student Government President</p>
+                            <p class="text-xs text-white/60 mt-0.5">Agahozo Shalom Youth Village</p>
+                        </div>
+                    </div>
+
+                    <!-- Video 4 -->
+                    <div class="relative w-full cursor-pointer group video-poster-card" data-video-id="3z0s_mqNiVM" data-video-title="Kwibuka: Poems of Memory and the 1994 Genocide Against the Tutsi" style="aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.15);">
+                        <img src="https://img.youtube.com/vi/3z0s_mqNiVM/maxresdefault.jpg" alt="Kwibuka: Poems of Memory and the 1994 Genocide Against the Tutsi" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;">
+                        <div class="absolute inset-0 bg-black/25 transition-opacity duration-300 group-hover:bg-black/15"></div>
+                        <div class="video-play" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 64px; height: 64px; border-radius: 50%; background: rgba(255,255,255,0.95); display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; box-shadow: 0 4px 30px rgba(0,0,0,0.25);">
+                            <i class="fas fa-play" style="color: #2D6A4F; font-size: 1.2rem; margin-left: 3px;"></i>
+                        </div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <p class="text-sm font-medium">Remarks From The Student Government President And The Cabinet Members</p>
+                            <p class="text-xs text-white/60 mt-0.5">Agahozo Shalom Youth Village</p>
+                        </div>
+                    </div>
+
                 </div>
+            </div>
+            <!-- YouTube Video Modal -->
+            <div id="youtube-modal" style="position: fixed; inset: 0; z-index: 9998; background: rgba(10,10,10,0.96); backdrop-filter: blur(20px); display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.4s ease;">
+                <div style="position: relative; width: 90vw; max-width: 960px; aspect-ratio: 16/9; border-radius: 10px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.5);">
+                    <iframe 
+                        id="yt-iframe"
+                        src="" 
+                        title="Simy Sandra Video Showreel" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowfullscreen
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;">
+                    </iframe>
+                </div>
+                <button onclick="closeYoutubeModal()" style="position: absolute; top: 24px; right: 24px; width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; font-size: 1.2rem;" aria-label="Close video">
+                    <i class="fas fa-xmark"></i>
+                </button>
             </div>
         </div>
     </section>
@@ -844,25 +897,33 @@
                     <!-- Left: Images with hover overlays -->
                     <div class="reveal-left">
                         <div class="leadership-img-main shadow-lg">
-                            <img src="https://picsum.photos/seed/media-leadership/600/400.jpg" alt="Leading a media team on set" loading="lazy">
-                            <div class="hover-overlay"><div><span>Media Leadership</span><h4>Directing on Set</h4></div></div>
+                            <img src="./images/leardership/behindlens.jpg" alt="Leading a media team on set" loading="lazy">
+                            <div class="hover-overlay"><div><span>Media Leadership</span><h4>Behind the Lens</h4></div></div>
                         </div>
                         <div class="leadership-img-grid">
                             <div class="grid-item shadow-md">
-                                <img src="https://picsum.photos/seed/media-camera-dir/300/220.jpg" alt="Directing a photoshoot" loading="lazy">
-                                <div class="hover-overlay"><div><span>Media</span><h4>Photoshoot Direction</h4></div></div>
+                                <img src="./images/leardership/behindlens1.jpg" alt="Directing a photoshoot" loading="lazy">
+                                <div class="hover-overlay"><div><span>Media</span><h4>Behind lens</h4></div></div>
                             </div>
                             <div class="grid-item shadow-md">
-                                <img src="https://picsum.photos/seed/media-edit-team/300/220.jpg" alt="Editing session with team" loading="lazy">
-                                <div class="hover-overlay"><div><span>Media</span><h4>Team Editing Session</h4></div></div>
+                                <img src="./images/leardership/simyiiii_2 (media).jpg" alt="Directing a photoshoot" loading="lazy">
+                                <div class="hover-overlay"><div><span>Media</span><h4>Award</h4></div></div>
                             </div>
                             <div class="grid-item shadow-md">
-                                <img src="https://picsum.photos/seed/media-event-cov/300/220.jpg" alt="Covering a live event" loading="lazy">
-                                <div class="hover-overlay"><div><span>Media</span><h4>Live Event Coverage</h4></div></div>
+                                <img src="./images/leardership/award.png" alt="award" loading="lazy">
+                                <div class="hover-overlay"><div><span>Media</span><h4>Award</h4></div></div>
                             </div>
                             <div class="grid-item shadow-md">
-                                <img src="https://picsum.photos/seed/media-briefing/300/220.jpg" alt="Creative briefing" loading="lazy">
-                                <div class="hover-overlay"><div><span>Media</span><h4>Creative Briefing</h4></div></div>
+                                <img src="./images/leardership/simy_13.jpg" alt=" posing for a photo" loading="lazy">
+                                <div class="hover-overlay"><div><span>Media</span><h4>Posing for a photo</h4></div></div>
+                            </div>
+                            <div class="grid-item shadow-md">
+                                <img src="./images/leardership/simy_15.jpg" alt="posing for a photo" loading="lazy">
+                                <div class="hover-overlay"><div><span>Media</span><h4>Posing For a photo</h4></div></div>
+                            </div>
+                            <div class="grid-item shadow-md">
+                                <img src="./images/leardership/simy_4.jpg" alt="derivering speech" loading="lazy">
+                                <div class="hover-overlay"><div><span>Media</span><h4>Derivering speech</h4></div></div>
                             </div>
                         </div>
                     </div>
@@ -899,25 +960,25 @@
                     <!-- Left: Images with hover overlays -->
                     <div class="reveal-left">
                         <div class="leadership-img-main shadow-lg">
-                            <img src="https://picsum.photos/seed/society-leadership/600/400.jpg" alt="Community gathering" loading="lazy">
-                            <div class="hover-overlay"><div><span>Society Leadership</span><h4>Community Gathering</h4></div></div>
+                            <img src="./images/leardership/simy_8.jpg" alt="Authentic" loading="lazy">
+                            <div class="hover-overlay"><div><span>Society Leadership</span><h4>Authentic Leader</h4></div></div>
                         </div>
                         <div class="leadership-img-grid">
                             <div class="grid-item shadow-md">
-                                <img src="https://picsum.photos/seed/society-youth-talk/300/220.jpg" alt="Youth mentorship conversation" loading="lazy">
-                                <div class="hover-overlay"><div><span>Society</span><h4>Youth Mentorship</h4></div></div>
+                                <img src="./images/leardership/simy_10.jpg" alt="Youth mentorship conversation" loading="lazy">
+                                <div class="hover-overlay"><div><span>Society</span><h4>Deriveling Speech</h4></div></div>
                             </div>
                             <div class="grid-item shadow-md">
-                                <img src="https://picsum.photos/seed/society-volunteer/300/220.jpg" alt="Volunteer service day" loading="lazy">
-                                <div class="hover-overlay"><div><span>Society</span><h4>Volunteer Service Day</h4></div></div>
+                                <img src="./images/leardership/simy_4.jpg" alt="speaker" loading="lazy">
+                                <div class="hover-overlay"><div><span>Society</span><h4>Confident Speaker</h4></div></div>
                             </div>
                             <div class="grid-item shadow-md">
-                                <img src="https://picsum.photos/seed/society-community-circle/300/220.jpg" alt="Community circle discussion" loading="lazy">
-                                <div class="hover-overlay"><div><span>Society</span><h4>Community Circle</h4></div></div>
+                                <img src="./images/leardership/simy_12.jpg" alt="conveying message" loading="lazy">
+                                <div class="hover-overlay"><div><span>Society</span><h4>Conveying Message</h4></div></div>
                             </div>
                             <div class="grid-item shadow-md">
-                                <img src="https://picsum.photos/seed/society-team-build/300/220.jpg" alt="Team building activity" loading="lazy">
-                                <div class="hover-overlay"><div><span>Society</span><h4>Team Building</h4></div></div>
+                                <img src="./images/leardership/simy_13.jpg" alt="Pecurial" loading="lazy">
+                                <div class="hover-overlay"><div><span>Society</span><h4>Pecurial</h4></div></div>
                             </div>
                         </div>
                     </div>
@@ -1548,6 +1609,53 @@
                     window.scrollTo({ top, behavior: 'smooth' });
                 }
             });
+        });
+
+
+
+        // ==================== YOUTUBE VIDEO MODAL ====================
+        const youtubeModal = document.getElementById('youtube-modal');
+        const ytIframe = document.getElementById('yt-iframe');
+        const videoPosterCards = document.querySelectorAll('.video-poster-card');
+
+        videoPosterCards.forEach(card => {
+            const cardImg = card.querySelector('img');
+            const cardPlayBtn = card.querySelector('.video-play');
+            card.addEventListener('mouseenter', () => {
+                cardImg.style.transform = 'scale(1.03)';
+                cardPlayBtn.style.background = '#E76F51';
+                cardPlayBtn.querySelector('i').style.color = '#fff';
+                cardPlayBtn.style.transform = 'translate(-50%, -50%) scale(1.1)';
+            });
+            card.addEventListener('mouseleave', () => {
+                cardImg.style.transform = 'scale(1)';
+                cardPlayBtn.style.background = 'rgba(255,255,255,0.95)';
+                cardPlayBtn.querySelector('i').style.color = '#2D6A4F';
+                cardPlayBtn.style.transform = 'translate(-50%, -50%) scale(1)';
+            });
+
+            card.addEventListener('click', () => {
+                const videoId = card.dataset.videoId;
+                ytIframe.src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0&modestbranding=1';
+                youtubeModal.style.opacity = '1';
+                youtubeModal.style.visibility = 'visible';
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        function closeYoutubeModal() {
+            youtubeModal.style.opacity = '0';
+            youtubeModal.style.visibility = 'hidden';
+            ytIframe.src = '';
+            document.body.style.overflow = '';
+        }
+
+        youtubeModal.addEventListener('click', (e) => {
+            if (e.target === youtubeModal) closeYoutubeModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (youtubeModal.style.visibility === 'visible' && e.key === 'Escape') closeYoutubeModal();
         });
     </script>
 </body>
