@@ -108,8 +108,11 @@
         .hero-bg { transition: transform 0.1s linear; will-change: transform; }
         .hero-content { opacity: 0; transform: translateY(40px); animation: heroReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 2s forwards; }
         .hero-tagline { opacity: 0; animation: heroReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 2.3s forwards; }
+        .typewriter-text { display: inline-block; white-space: nowrap; overflow: hidden; border-right: 2px solid rgba(255,255,255,0.85); }
+        .typewriter-text.blink { animation: blinkCaret 0.75s step-end infinite; }
         .hero-cta { opacity: 0; animation: heroReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 2.5s forwards; }
         @keyframes heroReveal { to { opacity: 1; transform: translateY(0); } }
+        @keyframes blinkCaret { 0%, 100% { border-color: transparent; } 50% { border-color: rgba(255,255,255,0.85); } }
         .scroll-indicator { opacity: 0; animation: heroReveal 1s ease 3s forwards; }
         .scroll-line { width: 1px; height: 60px; background: linear-gradient(to bottom, rgba(255,255,255,0.6), transparent); animation: scrollPulse 2s ease-in-out infinite; }
         @keyframes scrollPulse { 0%, 100% { opacity: 0.3; transform: scaleY(0.6); transform-origin: top; } 50% { opacity: 1; transform: scaleY(1); } }
@@ -473,7 +476,8 @@
         <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60"></div>
         <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
             <h1 class="hero-content font-display text-5xl sm:text-7xl lg:text-8xl font-light text-white leading-tight tracking-wide">Iradukunda Mahoro Sandra</h1>
-            <p class="hero-tagline font-display text-lg sm:text-xl text-white/70 mt-4 font-light italic tracking-wide">Capturing Light & Emotion</p>
+            <p class="hero-tagline font-display text-lg sm:text-xl text-white/70 mt-4 font-light italic tracking-wide"><span id="hero-quote-text" class="typewriter-text" aria-label="It is not yet success until we all successed"></span></p>
+            <p class="hero-tagline font-display text-lg sm:text-xl text-white mt-4 font-light italic tracking-wide">Capturing Light & Emotion</p>
             <a href="#projects" class="hero-cta inline-block mt-10 px-8 py-3.5 bg-brand-green text-white text-sm font-semibold uppercase tracking-widest rounded-full hover:bg-brand-orange transition-all duration-300 hover:shadow-lg hover:shadow-brand-orange hover:-translate-y-0.5">View Portfolio</a>
         </div>
         <div class="scroll-indicator absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
@@ -753,291 +757,291 @@
                     <img src="./images/mentorship/croudASYV.jpg" alt="Advice Time" loading="lazy">
                     <div class="hover-overlay"><div><span>Mentorship</span><h4>Advice Time</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="mentorship" data-index="44">
+                <div class="masonry-item" data-category="mentorship" data-index="45">
                     <img src="./images/mentorship/Butaro Visit_167.jpg" alt="Posing for a group photo" loading="lazy">
                     <div class="hover-overlay"><div><span>Mentorship</span><h4>Posing for a group photo</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="mentorship" data-index="44">
+                <div class="masonry-item" data-category="mentorship" data-index="46">
                     <img src="./images/mentorship/Butaro Visit_254.jpg" alt="Expaining Class Theory" loading="lazy">
                     <div class="hover-overlay"><div><span>Mentorship</span><h4>Expaining Class Theory</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="mentorship" data-index="44">
+                <div class="masonry-item" data-category="mentorship" data-index="47">
                     <img src="./images/mentorship/DSC00297.jpg" alt="capturing essence" loading="lazy">
                     <div class="hover-overlay"><div><span>Mentorship</span><h4>Capturing Essence</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="mentorship" data-index="44">
+                <div class="masonry-item" data-category="mentorship" data-index="48">
                     <img src="./images/mentorship/groupphoto.jpg" alt="posing for group photo" loading="lazy">
                     <div class="hover-overlay"><div><span>Mentorship</span><h4>Posing for group photo</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="mentorship" data-index="44">
+                <div class="masonry-item" data-category="mentorship" data-index="49">
                     <img src="./images/mentorship/simy the cancer_40.jpg" alt="beating Breast Cancer Initiative East Africa" loading="lazy">
                     <div class="hover-overlay"><div><span>Mentorship</span><h4>beating Breast Cancer Initiative East Africa</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="mentorship" data-index="44">
+                <div class="masonry-item" data-category="mentorship" data-index="50">
                     <img src="./images/mentorship/simy the cancer_43.jpg" alt="beating Breast Cancer Initiative East Africa" loading="lazy">
                     <div class="hover-overlay"><div><span>Mentorship</span><h4>beating Breast Cancer Initiative East Africa</h4></div></div>
                 </div>
 
                 <!-- Games -->
-                <div class="masonry-item" data-category="games" data-index="45">
+                <div class="masonry-item" data-category="games" data-index="51">
                     <img src="./images/games/aewzxc_147.jpg" alt="Throw-in Ball" loading="lazy">
                     <div class="hover-overlay"><div><span>Games</span><h4>Throw-in Ball</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="games" data-index="46">
+                <div class="masonry-item" data-category="games" data-index="52">
                     <img src="./images/games/ball_5.jpg" alt="Dunk" loading="lazy">
                     <div class="hover-overlay"><div><span>Games</span><h4>Dunk</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="games" data-index="47">
+                <div class="masonry-item" data-category="games" data-index="53">
                     <img src="./images/games/ball_45.jpg" alt="winners" loading="lazy">
                     <div class="hover-overlay"><div><span>Games</span><h4>Winners</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="games" data-index="48">
+                <div class="masonry-item" data-category="games" data-index="54">
                     <img src="./images/games/ball_82.jpg" alt="scanning pitch" loading="lazy">
                     <div class="hover-overlay"><div><span>Games</span><h4>Scanning pitch</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="games" data-index="49">
+                <div class="masonry-item" data-category="games" data-index="55">
                     <img src="./images/games/basketball.jpg" alt="Ready to Pass" loading="lazy">
                     <div class="hover-overlay"><div><span>Games</span><h4>Ready to Pass</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="games" data-index="50">
+                <div class="masonry-item" data-category="games" data-index="56">
                     <img src="./images/games/aewzxc_75.JPG" alt="Header mid-air" loading="lazy">
                     <div class="hover-overlay"><div><span>Games</span><h4>Header mid-air</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="games" data-index="51">
+                <div class="masonry-item" data-category="games" data-index="57">
                     <img src="./images/games/aewzxc_39.JPG" alt="save" loading="lazy">
                     <div class="hover-overlay"><div><span>Games</span><h4>Save</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="games" data-index="52">
+                <div class="masonry-item" data-category="games" data-index="58">
                     <img src="./images/games/aewzxc_81.JPG" alt="Defender" loading="lazy">
                     <div class="hover-overlay"><div><span>Games</span><h4>Defender</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="games" data-index="52">
+                <div class="masonry-item" data-category="games" data-index="59">
                     <img src="./images/games/aewzxc_2.JPG" alt="Warm-up" loading="lazy">
                     <div class="hover-overlay"><div><span>Games</span><h4>Warm-up</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="games" data-index="52">
+                <div class="masonry-item" data-category="games" data-index="60">
                     <img src="./images/games/aewzxc_16.JPG" alt="Missed-tackle" loading="lazy">
                     <div class="hover-overlay"><div><span>Games</span><h4>Missed-tackle</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="games" data-index="52">
+                <div class="masonry-item" data-category="games" data-index="61">
                     <img src="./images/games/aewzxc_59.JPG" alt="Corner kick" loading="lazy">
                     <div class="hover-overlay"><div><span>Games</span><h4>Corner kick</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="games" data-index="52">
+                <div class="masonry-item" data-category="games" data-index="62">
                     <img src="./images/games/ball_7.jpg" alt="Defence" loading="lazy">
                     <div class="hover-overlay"><div><span>Games</span><h4>Defence</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="games" data-index="52">
+                <div class="masonry-item" data-category="games" data-index="63">
                     <img src="./images/games/ball_9.jpg" alt="Ready To make pass" loading="lazy">
                     <div class="hover-overlay"><div><span>Games</span><h4>Ready To make pass</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="games" data-index="52">
+                <div class="masonry-item" data-category="games" data-index="64">
                     <img src="./images/games/ball_10.jpg" alt="Making a way-in" loading="lazy">
                     <div class="hover-overlay"><div><span>Games</span><h4>Making a way-in</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="games" data-index="52">
+                <div class="masonry-item" data-category="games" data-index="65">
                     <img src="./images/games/ball_12.jpg" alt="Gravity not working on Him" loading="lazy">
                     <div class="hover-overlay"><div><span>Games</span><h4>Gravity not working on Him</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="games" data-index="52">
+                <div class="masonry-item" data-category="games" data-index="66">
                     <img src="./images/games/ball_26.jpg" alt="Defender" loading="lazy">
                     <div class="hover-overlay"><div><span>Games</span><h4>Defender</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="games" data-index="52">
+                <div class="masonry-item" data-category="games" data-index="67">
                     <img src="./images/games/ball_26.jpg" alt="Long range shot" loading="lazy">
                     <div class="hover-overlay"><div><span>Games</span><h4>Long range shoot</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="games" data-index="52">
+                <div class="masonry-item" data-category="games" data-index="68">
                     <img src="./images/games/ball_29.jpg" alt="ready to pass" loading="lazy">
                     <div class="hover-overlay"><div><span>Games</span><h4>Ready to pass</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="games" data-index="52">
+                <div class="masonry-item" data-category="games" data-index="69">
                     <img src="./images/games/ball_66.jpg" alt="Winners" loading="lazy">
                     <div class="hover-overlay"><div><span>Games</span><h4>2 Points Loading</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="games" data-index="52">
+                <div class="masonry-item" data-category="games" data-index="70">
                     <img src="./images/games/ball_83.jpg" alt="Defender" loading="lazy">
                     <div class="hover-overlay"><div><span>Games</span><h4>Defender</h4></div></div>
                 </div>
 
                 <!-- Prayers -->
-                <div class="masonry-item" data-category="prayers" data-index="53">
+                <div class="masonry-item" data-category="prayers" data-index="71">
                     <img src="./images/prayers/church_2.JPG" alt="Bible session" loading="lazy">
                     <div class="hover-overlay"><div><span>Prayers</span><h4>Bible Session</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="prayers" data-index="54">
+                <div class="masonry-item" data-category="prayers" data-index="72">
                     <img src="./images/prayers/church_7.JPG" alt="Preaching session" loading="lazy">
                     <div class="hover-overlay"><div><span>Prayers</span><h4>Preaching Session</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="prayers" data-index="55">
+                <div class="masonry-item" data-category="prayers" data-index="73">
                     <img src="./images/prayers/church_11.JPG" alt="Preaching session" loading="lazy">
                     <div class="hover-overlay"><div><span>Prayers</span><h4>Preaching Session</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="prayers" data-index="56">
+                <div class="masonry-item" data-category="prayers" data-index="74">
                     <img src="./images/prayers/church_34.JPG" alt="Meditation moment" loading="lazy">
                     <div class="hover-overlay"><div><span>Prayers</span><h4>Meditation Moment</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="prayers" data-index="57">
+                <div class="masonry-item" data-category="prayers" data-index="75">
                     <img src="./images/prayers/church_50.JPG" alt="Worship session" loading="lazy">
                     <div class="hover-overlay"><div><span>Prayers</span><h4>Worship Session</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="prayers" data-index="58">
+                <div class="masonry-item" data-category="prayers" data-index="76">
                     <img src="./images/prayers/church_59.JPG" alt="Praising the Lord" loading="lazy">
                     <div class="hover-overlay"><div><span>Prayers</span><h4>Praising the Lord</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="prayers" data-index="59">
+                <div class="masonry-item" data-category="prayers" data-index="77">
                     <img src="./images/prayers/church_52.JPG" alt="Worship session" loading="lazy">
                     <div class="hover-overlay"><div><span>Prayers</span><h4>Worship Session</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="prayers" data-index="60">
+                <div class="masonry-item" data-category="prayers" data-index="78">
                     <img src="./images/prayers/church_61.JPG" alt="Meditation moment" loading="lazy">
                     <div class="hover-overlay"><div><span>Prayers</span><h4>Meditation Moment</h4></div></div>
                 </div>
 
                 <!-- Isomo -->
-                <div class="masonry-item" data-category="isomo" data-index="61">
+                <div class="masonry-item" data-category="isomo" data-index="79">
                     <img src="./images/isomo/isomo circles_1.jpg" alt="picture session" loading="lazy">
                     <div class="hover-overlay"><div><span>Isomo</span><h4>Picture Session</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="isomo" data-index="62">
+                <div class="masonry-item" data-category="isomo" data-index="80">
                     <img src="./images/isomo/isomo circles_7.jpg" alt="leaders discussion" loading="lazy">
                     <div class="hover-overlay"><div><span>Isomo</span><h4>Leaders Discussion</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="isomo" data-index="63">
+                <div class="masonry-item" data-category="isomo" data-index="81">
                     <img src="./images/isomo/isomo circles_8.jpg" alt="laugher moment" loading="lazy">
                     <div class="hover-overlay"><div><span>Isomo</span><h4>Laughter Moment</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="isomo" data-index="64">
+                <div class="masonry-item" data-category="isomo" data-index="82">
                     <img src="./images/isomo/isomo circles_9.jpg" alt="re-meet moment" loading="lazy">
                     <div class="hover-overlay"><div><span>Isomo</span><h4>Re-meet Moment</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="isomo" data-index="65">
+                <div class="masonry-item" data-category="isomo" data-index="83">
                     <img src="./images/isomo/isomo circles_17.jpg" alt="into time" loading="lazy">
                     <div class="hover-overlay"><div><span>Isomo</span><h4>Intro Time</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="isomo" data-index="66">
+                <div class="masonry-item" data-category="isomo" data-index="84">
                     <img src="./images/isomo/isomo circles_18.jpg" alt="circular rings ceiling" loading="lazy">
                     <div class="hover-overlay"><div><span>Isomo</span><h4>Circular rings ceiling</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="isomo" data-index="67">
+                <div class="masonry-item" data-category="isomo" data-index="85">
                     <img src="./images/isomo/isomo circles_21.jpg" alt="dancing session" loading="lazy">
                     <div class="hover-overlay"><div><span>Isomo</span><h4>Dancing Session</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="isomo" data-index="68">
+                <div class="masonry-item" data-category="isomo" data-index="86">
                     <img src="./images/isomo/isomo circles_24.jpg" alt="Dancing session" loading="lazy">
                     <div class="hover-overlay"><div><span>Isomo</span><h4>Dancing Session</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="isomo" data-index="69">
+                <div class="masonry-item" data-category="isomo" data-index="87">
                     <img src="./images/isomo/isomo circles_28.jpg" alt="In that Moment" loading="lazy">
                     <div class="hover-overlay"><div><span>Isomo</span><h4>In That Moment</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="isomo" data-index="70">
+                <div class="masonry-item" data-category="isomo" data-index="88">
                     <img src="./images/isomo/isomo circles_29.jpg" alt="Learning Time" loading="lazy">
                     <div class="hover-overlay"><div><span>Isomo</span><h4>Learning Time</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="isomo" data-index="71">
+                <div class="masonry-item" data-category="isomo" data-index="89">
                     <img src="./images/isomo/isomo circles_36.jpg" alt="Getting To know You session" loading="lazy">
                     <div class="hover-overlay"><div><span>Isomo</span><h4>Getting To Know You Session</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="isomo" data-index="72">
+                <div class="masonry-item" data-category="isomo" data-index="90">
                     <img src="./images/isomo/isomo circles_35.jpg" alt="Cultural Dancing session" loading="lazy">
                     <div class="hover-overlay"><div><span>Isomo</span><h4>Cultural Dancing session</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="isomo" data-index="73">
+                <div class="masonry-item" data-category="isomo" data-index="91">
                     <img src="./images/isomo/isomo_8.jpg" alt="Getting to know everyone" loading="lazy">
                     <div class="hover-overlay"><div><span>Isomo</span><h4>Getting To know Everyone</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="isomo" data-index="74">
+                <div class="masonry-item" data-category="isomo" data-index="92">
                     <img src="./images/isomo/isomo_6.jpg" alt="Meditation time" loading="lazy">
                     <div class="hover-overlay"><div><span>Isomo</span><h4>Meditation time </h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="isomo" data-index="75">
+                <div class="masonry-item" data-category="isomo" data-index="93">
                     <img src="./images/isomo/isomon_25.jpg" alt="Traditional dance session" loading="lazy">
                     <div class="hover-overlay"><div><span>Isomo</span><h4>Traditional Dance Session</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="isomo" data-index="76">
+                <div class="masonry-item" data-category="isomo" data-index="94">
                     <img src="./images/isomo/isomon_27.jpg" alt="Traditional dance session" loading="lazy">
                     <div class="hover-overlay"><div><span>Isomo</span><h4>Traditional Dance Session</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="isomo" data-index="77">
+                <div class="masonry-item" data-category="isomo" data-index="95">
                     <img src="./images/isomo/isomon_28.jpg" alt="Traditional dance session" loading="lazy">
                     <div class="hover-overlay"><div><span>Isomo</span><h4>Traditional Dance Session</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="isomo" data-index="78">
+                <div class="masonry-item" data-category="isomo" data-index="96">
                     <img src="./images/isomo/isomon_30.jpg" alt="Teaching Time" loading="lazy">
                     <div class="hover-overlay"><div><span>Isomo</span><h4>Teaching Time</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="isomo" data-index="79">
+                <div class="masonry-item" data-category="isomo" data-index="97">
                     <img src="./images/isomo/isomon_19.jpg" alt="Sharing Experience With Educators" loading="lazy">
                     <div class="hover-overlay"><div><span>Isomo</span><h4>Sharing Experience With Educators</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="isomo" data-index="79">
+                <div class="masonry-item" data-category="isomo" data-index="98">
                     <img src="./images/isomo/isomo circles_5.jpg" alt="Re-meet Moment" loading="lazy">
                     <div class="hover-overlay"><div><span>Isomo</span><h4>Re-meet Moment</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="isomo" data-index="79">
+                <div class="masonry-item" data-category="isomo" data-index="99">
                     <img src="./images/isomo/isomo circles_20.jpg" alt="Traditional dance" loading="lazy">
                     <div class="hover-overlay"><div><span>Isomo</span><h4>Traditional Dance</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="isomo" data-index="79">
+                <div class="masonry-item" data-category="isomo" data-index="100">
                     <img src="./images/isomo/isomo circles_7.jpg" alt="Laughter moment" loading="lazy">
                     <div class="hover-overlay"><div><span>Isomo</span><h4>Laughter Moment</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="isomo" data-index="79">
+                <div class="masonry-item" data-category="isomo" data-index="101">
                     <img src="./images/isomo/isomon_22.jpg" alt="Posing for a photo" loading="lazy">
                     <div class="hover-overlay"><div><span>Isomo</span><h4>Posing for a photo</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="isomo" data-index="79">
+                <div class="masonry-item" data-category="isomo" data-index="102">
                     <img src="./images/isomo/isomon_26 (wide).jpg" alt="Wide Group photo" loading="lazy">
                     <div class="hover-overlay"><div><span>Isomo</span><h4>Wide Group photo</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="isomo" data-index="79">
+                <div class="masonry-item" data-category="isomo" data-index="103">
                     <img src="./images/isomo/isomon_29.jpg" alt="Taking notes" loading="lazy">
                     <div class="hover-overlay"><div><span>Isomo</span><h4>Taking notes</h4></div></div>
                 </div>
 
                 <!-- Music -->
-                <div class="masonry-item" data-category="music" data-index="80">
+                <div class="masonry-item" data-category="music" data-index="104">
                     <img src="./images/music/besties_1.jpg" alt="Laughter Time" loading="lazy">
                     <div class="hover-overlay"><div><span>Music</span><h4>Laughter Time</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="music" data-index="81">
+                <div class="masonry-item" data-category="music" data-index="105">
                     <img src="./images/music/besties_2.jpg" alt="Pianist Time" loading="lazy">
                     <div class="hover-overlay"><div><span>Music</span><h4>Pianist Time</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="music" data-index="82">
+                <div class="masonry-item" data-category="music" data-index="106">
                     <img src="./images/music/lucky_1.jpg" alt="djing performance" loading="lazy">
                     <div class="hover-overlay"><div><span>Music</span><h4>Djing Performance</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="music" data-index="83">
+                <div class="masonry-item" data-category="music" data-index="107">
                     <img src="./images/music/simy_6.jpg" alt="Live performance" loading="lazy">
                     <div class="hover-overlay"><div><span>Music</span><h4>Live Performance</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="music" data-index="84">
+                <div class="masonry-item" data-category="music" data-index="108">
                     <img src="./images/music/simy_10.jpg" alt="Live music performance" loading="lazy">
                     <div class="hover-overlay"><div><span>Music</span><h4>Live Performance</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="music" data-index="85">
+                <div class="masonry-item" data-category="music" data-index="109">
                     <img src="./images/music/simy_26.jpg" alt="Giving my all" loading="lazy">
                     <div class="hover-overlay"><div><span>Music</span><h4>Giving My All</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="music" data-index="86">
+                <div class="masonry-item" data-category="music" data-index="110">
                     <img src="./images/music/simy_66.jpg" alt="Requesting live band my drill" loading="lazy">
                     <div class="hover-overlay"><div><span>Music</span><h4>Requesting Live Band my Drill</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="music" data-index="87">
+                <div class="masonry-item" data-category="music" data-index="111">
                     <img src="./images/music/simy_114.jpg" alt="vibing quietly" loading="lazy">
                     <div class="hover-overlay"><div><span>Music</span><h4>Vibing Quietly</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="music" data-index="88">
+                <div class="masonry-item" data-category="music" data-index="112">
                     <img src="./images/music/simy_116.jpg" alt="watching performance" loading="lazy">
                     <div class="hover-overlay"><div><span>Music</span><h4>Watching Performance</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="music" data-index="88">
+                <div class="masonry-item" data-category="music" data-index="113">
                     <img src="./images/music/simy_16.jpg" alt="Adjusting viewers excitement" loading="lazy">
                     <div class="hover-overlay"><div><span>Music</span><h4>Adjusting viewers excitement</h4></div></div>
                 </div>
-                <div class="masonry-item" data-category="music" data-index="88">
+                <div class="masonry-item" data-category="music" data-index="114">
                     <img src="./images/music/simy_57.jpg" alt="capturing essence" loading="lazy">
                     <div class="hover-overlay"><div><span>Music</span><h4>Capturing essence</h4></div></div>
                 </div>
@@ -1401,7 +1405,7 @@
                         <h3 class="font-display text-3xl md:text-4xl font-light text-ink-black leading-tight mt-2">Pixel Forge (Media AI)</h3>
                         <div class="green-line mt-6 mb-6"></div>
                         <p class="text-ink-mid leading-relaxed mb-4">
-                            Pixel Forge is an innovative AI-powered media platform designed to revolutionize how creators interact with visual content. As the developer behind this project, I created a comprehensive solution that combines cutting-edge artificial intelligence with intuitive design to deliver powerful media manipulation capabilities.
+                            I created this project called Pixel Forge (Media AI) as an innovative AI-powered media platform designed to revolutionize how creators (videographer, photographer, editors and many others in media field) interact with visual content. As the developer behind this project, I created a comprehensive solution that combines cutting-edge artificial intelligence with intuitive design to deliver powerful media manipulation capabilities.
                         </p>
                         <p class="text-ink-mid leading-relaxed mb-6">
                             The platform offers advanced features including AI image generation, intelligent photo enhancement, automated background removal, style transfer, and smart content analysis. Whether you're a professional photographer, content creator, or social media enthusiast, Pixel Forge simplifies complex editing tasks while maintaining professional quality results.
@@ -1630,7 +1634,55 @@
             setTimeout(() => {
                 document.getElementById('preloader').classList.add('loaded');
             }, 2000);
+            initTypewriter();
         });
+
+        function initTypewriter() {
+            const element = document.getElementById('hero-quote-text');
+            if (!element) return;
+
+            const text = '"It is not yet success until we all successed"';
+            const typingSpeed = 80;
+            const pauseTime = 1800;
+            let charIndex = 0;
+            let direction = 1;
+
+            const updateText = () => {
+                element.textContent = text.slice(0, charIndex);
+            };
+
+            const resetBlink = () => {
+                element.classList.remove('blink');
+            };
+
+            const loop = () => {
+                if (direction === 1) {
+                    if (charIndex <= text.length) {
+                        updateText();
+                        charIndex += 1;
+                        setTimeout(loop, typingSpeed);
+                    } else {
+                        element.classList.add('blink');
+                        setTimeout(() => {
+                            resetBlink();
+                            direction = -1;
+                            setTimeout(loop, typingSpeed);
+                        }, pauseTime);
+                    }
+                } else {
+                    if (charIndex >= 0) {
+                        updateText();
+                        charIndex -= 1;
+                        setTimeout(loop, typingSpeed / 2);
+                    } else {
+                        direction = 1;
+                        setTimeout(loop, typingSpeed);
+                    }
+                }
+            };
+
+            loop();
+        }
 
         // ==================== NAVIGATION ====================
         const navbar = document.getElementById('navbar');
