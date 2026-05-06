@@ -261,6 +261,148 @@
         .img-cover { width: 100%; height: 100%; object-fit: cover; }
         .green-line { width: 40px; height: 2px; background: #2D6A4F; }
 
+        /* PDF Document Card */
+        .pdf-card {
+            background: #fff;
+            border: 1px solid #E7E5E4;
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .pdf-card:hover {
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            transform: translateY(-4px);
+            border-color: #2D6A4F;
+        }
+        .pdf-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #2D6A4F, #40916C);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .pdf-card:hover::before {
+            opacity: 1;
+        }
+        .pdf-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #2D6A4F, #40916C);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+            transition: transform 0.3s ease;
+        }
+        .pdf-card:hover .pdf-icon {
+            transform: scale(1.05);
+        }
+        .pdf-view-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: transparent;
+            border: 1.5px solid #2D6A4F;
+            color: #2D6A4F;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 12px;
+        }
+        .pdf-view-btn:hover {
+            background: #2D6A4F;
+            color: white;
+        }
+        .pdf-download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: #2D6A4F;
+            border: 1.5px solid #E76F51;
+            color: white;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 12px;
+            margin-left: 8px;
+        }
+        .pdf-download-btn:hover {
+            background: #E76F51;
+            border-color: #2D6A4F;
+            transform: translateY(-2px);
+        }
+
+        /* PDF Modal */
+        #pdf-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            background: rgba(10,10,10,0.96);
+            backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+        }
+        #pdf-modal.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .pdf-modal-content {
+            width: 90vw;
+            max-width: 1000px;
+            height: 85vh;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+            position: relative;
+        }
+        .pdf-modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.95);
+            border: 1px solid rgba(228,231,230,0.8);
+            color: #1C1917;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            z-index: 10;
+        }
+        .pdf-modal-close:hover {
+            background: #E76F51;
+            border-color: #E76F51;
+            color: #fff;
+        }
+
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
         }
@@ -295,6 +437,7 @@
                 </div>
             </div>
             <a href="#testimonials" class="nav-link text-white text-sm tracking-wide font-medium">Testimonials</a>
+            <a href="#documents" class="nav-link text-white text-sm tracking-wide font-medium">Documents</a>
             <a href="#contact" class="nav-link text-white text-sm tracking-wide font-medium">Contact</a>
         </div>
         <div class="hamburger md:hidden" id="hamburger" aria-label="Toggle menu" role="button" tabindex="0">
@@ -315,6 +458,8 @@
                 <a href="#leadership" class="mobile-sub-link" onclick="switchLeadershipTab('media')">Media Leadership</a>
                 <a href="#leadership" class="mobile-sub-link" onclick="switchLeadershipTab('society')">Society Leadership</a>
             </div>
+            
+            <a href="#documents" class="mobile-link">Documents</a>
             <a href="#testimonials" class="mobile-link">Testimonials</a>
             <a href="#contact" class="mobile-link">Contact</a>
         </div>
@@ -412,6 +557,7 @@
                 <button class="filter-btn" data-filter="prayers">Prayers</button>
                 <button class="filter-btn" data-filter="isomo">Isomo</button>
                 <button class="filter-btn" data-filter="music">Music</button>
+                <button class="filter-btn" data-filter="Photoshoot">Photo shoot</button>
             </div>
 
             <!-- Masonry Gallery -->
@@ -607,6 +753,30 @@
                     <img src="./images/mentorship/croudASYV.jpg" alt="Advice Time" loading="lazy">
                     <div class="hover-overlay"><div><span>Mentorship</span><h4>Advice Time</h4></div></div>
                 </div>
+                <div class="masonry-item" data-category="mentorship" data-index="44">
+                    <img src="./images/mentorship/Butaro Visit_167.jpg" alt="Posing for a group photo" loading="lazy">
+                    <div class="hover-overlay"><div><span>Mentorship</span><h4>Posing for a group photo</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="mentorship" data-index="44">
+                    <img src="./images/mentorship/Butaro Visit_254.jpg" alt="Expaining Class Theory" loading="lazy">
+                    <div class="hover-overlay"><div><span>Mentorship</span><h4>Expaining Class Theory</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="mentorship" data-index="44">
+                    <img src="./images/mentorship/DSC00297.jpg" alt="capturing essence" loading="lazy">
+                    <div class="hover-overlay"><div><span>Mentorship</span><h4>Capturing Essence</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="mentorship" data-index="44">
+                    <img src="./images/mentorship/groupphoto.jpg" alt="posing for group photo" loading="lazy">
+                    <div class="hover-overlay"><div><span>Mentorship</span><h4>Posing for group photo</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="mentorship" data-index="44">
+                    <img src="./images/mentorship/simy the cancer_40.jpg" alt="beating Breast Cancer Initiative East Africa" loading="lazy">
+                    <div class="hover-overlay"><div><span>Mentorship</span><h4>beating Breast Cancer Initiative East Africa</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="mentorship" data-index="44">
+                    <img src="./images/mentorship/simy the cancer_43.jpg" alt="beating Breast Cancer Initiative East Africa" loading="lazy">
+                    <div class="hover-overlay"><div><span>Mentorship</span><h4>beating Breast Cancer Initiative East Africa</h4></div></div>
+                </div>
 
                 <!-- Games -->
                 <div class="masonry-item" data-category="games" data-index="45">
@@ -639,6 +809,54 @@
                 </div>
                 <div class="masonry-item" data-category="games" data-index="52">
                     <img src="./images/games/aewzxc_81.JPG" alt="Defender" loading="lazy">
+                    <div class="hover-overlay"><div><span>Games</span><h4>Defender</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="games" data-index="52">
+                    <img src="./images/games/aewzxc_2.JPG" alt="Warm-up" loading="lazy">
+                    <div class="hover-overlay"><div><span>Games</span><h4>Warm-up</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="games" data-index="52">
+                    <img src="./images/games/aewzxc_16.JPG" alt="Missed-tackle" loading="lazy">
+                    <div class="hover-overlay"><div><span>Games</span><h4>Missed-tackle</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="games" data-index="52">
+                    <img src="./images/games/aewzxc_59.JPG" alt="Corner kick" loading="lazy">
+                    <div class="hover-overlay"><div><span>Games</span><h4>Corner kick</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="games" data-index="52">
+                    <img src="./images/games/ball_7.jpg" alt="Defence" loading="lazy">
+                    <div class="hover-overlay"><div><span>Games</span><h4>Defence</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="games" data-index="52">
+                    <img src="./images/games/ball_9.jpg" alt="Ready To make pass" loading="lazy">
+                    <div class="hover-overlay"><div><span>Games</span><h4>Ready To make pass</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="games" data-index="52">
+                    <img src="./images/games/ball_10.jpg" alt="Making a way-in" loading="lazy">
+                    <div class="hover-overlay"><div><span>Games</span><h4>Making a way-in</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="games" data-index="52">
+                    <img src="./images/games/ball_12.jpg" alt="Gravity not working on Him" loading="lazy">
+                    <div class="hover-overlay"><div><span>Games</span><h4>Gravity not working on Him</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="games" data-index="52">
+                    <img src="./images/games/ball_26.jpg" alt="Defender" loading="lazy">
+                    <div class="hover-overlay"><div><span>Games</span><h4>Defender</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="games" data-index="52">
+                    <img src="./images/games/ball_26.jpg" alt="Long range shot" loading="lazy">
+                    <div class="hover-overlay"><div><span>Games</span><h4>Long range shoot</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="games" data-index="52">
+                    <img src="./images/games/ball_29.jpg" alt="ready to pass" loading="lazy">
+                    <div class="hover-overlay"><div><span>Games</span><h4>Ready to pass</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="games" data-index="52">
+                    <img src="./images/games/ball_66.jpg" alt="Winners" loading="lazy">
+                    <div class="hover-overlay"><div><span>Games</span><h4>2 Points Loading</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="games" data-index="52">
+                    <img src="./images/games/ball_83.jpg" alt="Defender" loading="lazy">
                     <div class="hover-overlay"><div><span>Games</span><h4>Defender</h4></div></div>
                 </div>
 
@@ -753,6 +971,30 @@
                     <img src="./images/isomo/isomon_19.jpg" alt="Sharing Experience With Educators" loading="lazy">
                     <div class="hover-overlay"><div><span>Isomo</span><h4>Sharing Experience With Educators</h4></div></div>
                 </div>
+                <div class="masonry-item" data-category="isomo" data-index="79">
+                    <img src="./images/isomo/isomo circles_5.jpg" alt="Re-meet Moment" loading="lazy">
+                    <div class="hover-overlay"><div><span>Isomo</span><h4>Re-meet Moment</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="isomo" data-index="79">
+                    <img src="./images/isomo/isomo circles_20.jpg" alt="Traditional dance" loading="lazy">
+                    <div class="hover-overlay"><div><span>Isomo</span><h4>Traditional Dance</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="isomo" data-index="79">
+                    <img src="./images/isomo/isomo circles_7.jpg" alt="Laughter moment" loading="lazy">
+                    <div class="hover-overlay"><div><span>Isomo</span><h4>Laughter Moment</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="isomo" data-index="79">
+                    <img src="./images/isomo/isomon_22.jpg" alt="Posing for a photo" loading="lazy">
+                    <div class="hover-overlay"><div><span>Isomo</span><h4>Posing for a photo</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="isomo" data-index="79">
+                    <img src="./images/isomo/isomon_26 (wide).jpg" alt="Wide Group photo" loading="lazy">
+                    <div class="hover-overlay"><div><span>Isomo</span><h4>Wide Group photo</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="isomo" data-index="79">
+                    <img src="./images/isomo/isomon_29.jpg" alt="Taking notes" loading="lazy">
+                    <div class="hover-overlay"><div><span>Isomo</span><h4>Taking notes</h4></div></div>
+                </div>
 
                 <!-- Music -->
                 <div class="masonry-item" data-category="music" data-index="80">
@@ -790,6 +1032,14 @@
                 <div class="masonry-item" data-category="music" data-index="88">
                     <img src="./images/music/simy_116.jpg" alt="watching performance" loading="lazy">
                     <div class="hover-overlay"><div><span>Music</span><h4>Watching Performance</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="music" data-index="88">
+                    <img src="./images/music/simy_16.jpg" alt="Adjusting viewers excitement" loading="lazy">
+                    <div class="hover-overlay"><div><span>Music</span><h4>Adjusting viewers excitement</h4></div></div>
+                </div>
+                <div class="masonry-item" data-category="music" data-index="88">
+                    <img src="./images/music/simy_57.jpg" alt="capturing essence" loading="lazy">
+                    <div class="hover-overlay"><div><span>Music</span><h4>Capturing essence</h4></div></div>
                 </div>
             </div>
 
@@ -856,6 +1106,7 @@
 
                 </div>
             </div>
+
             <!-- YouTube Video Modal -->
             <div id="youtube-modal" style="position: fixed; inset: 0; z-index: 9998; background: rgba(10,10,10,0.96); backdrop-filter: blur(20px); display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.4s ease;">
                 <div style="position: relative; width: 90vw; max-width: 960px; aspect-ratio: 16/9; border-radius: 10px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.5);">
@@ -1027,7 +1278,169 @@
         </div>
     </section>
 
-    <!-- Testimonials Section -->
+
+    <!-- Documents Section -->
+    <section id="documents" class="py-24 md:py-36 bg-surface-off-white">
+        <div class="max-w-6xl mx-auto px-6 md:px-12">
+            <div class="text-center mb-16">
+                <span class="section-label reveal justify-center">Professional Documents</span>
+                <h2 class="reveal delay-1 font-display text-4xl md:text-5xl lg:text-6xl font-light text-ink-black leading-tight">My Credentials</h2>
+                <p class="reveal delay-2 text-ink-mid mt-4 max-w-xl mx-auto">Explore my professional journey through these comprehensive documents that showcase my skills, experience, and recommendations.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 reveal delay-3">
+                <!-- Cover Letter -->
+                <div class="pdf-card">
+                    <div class="pdf-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3 class="font-display text-2xl font-light text-ink-black mb-2">Cover Letter</h3>
+                    <p class="text-ink-mid text-sm leading-relaxed mb-4">
+                        A personalized introduction highlighting my passion for visual storytelling and how my unique blend of skills can bring value to your organization.
+                    </p>
+                    <div class="flex items-center gap-2 text-xs text-ink-light mb-4">
+                        <i class="fas fa-file-pdf"></i>
+                        <span>PDF Format</span>
+                        <span class="mx-1">•</span>
+                        <span>Updated Recently</span>
+                    </div>
+                    <div class="flex flex-wrap">
+                        <button class="pdf-view-btn" onclick="openPdfModal('./documents/cover-letter.pdf', 'Cover Letter')">
+                            <i class="fas fa-eye"></i>
+                            View
+                        </button>
+                        <a href="./documents/cover-letter.pdf" class="pdf-download-btn">
+                            <i class="fas fa-download"></i>
+                            Download
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Resume -->
+                <div class="pdf-card">
+                    <div class="pdf-icon">
+                        <i class="fas fa-file-user"></i>
+                    </div>
+                    <h3 class="font-display text-2xl font-light text-ink-black mb-2">Resume</h3>
+                    <p class="text-ink-mid text-sm leading-relaxed mb-4">
+                        A comprehensive overview of my professional experience, technical skills, education, and accomplishments in photography, videography, and media production.
+                    </p>
+                    <div class="flex items-center gap-2 text-xs text-ink-light mb-4">
+                        <i class="fas fa-file-pdf"></i>
+                        <span>PDF Format</span>
+                        <span class="mx-1">•</span>
+                        <span>Updated Recently</span>
+                    </div>
+                    <div class="flex flex-wrap">
+                        <button class="pdf-view-btn" onclick="openPdfModal('./documents/resume.pdf', 'Resume')">
+                            <i class="fas fa-eye"></i>
+                            View
+                        </button>
+                        <a href="./documents/resume.pdf" class="pdf-download-btn">
+                            <i class="fas fa-download"></i>
+                            Download
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Recommendation Letter -->
+                <div class="pdf-card">
+                    <div class="pdf-icon">
+                        <i class="fas fa-file-signature"></i>
+                    </div>
+                    <h3 class="font-display text-2xl font-light text-ink-black mb-2">Recommendation Letter</h3>
+                    <p class="text-ink-mid text-sm leading-relaxed mb-4">
+                        A professional endorsement from former supervisor attesting to my work ethic, creativity, and contributions to various projects.
+                    </p>
+                    <div class="flex items-center gap-2 text-xs text-ink-light mb-4">
+                        <i class="fas fa-file-pdf"></i>
+                        <span>PDF Format</span>
+                        <span class="mx-1">•</span>
+                        <span>Updated Recently</span>
+                    </div>
+                    <div class="flex flex-wrap">
+                        <button class="pdf-view-btn" onclick="openPdfModal('./documents/recommendation-letter.pdf', 'Recommendation Letter')">
+                            <i class="fas fa-eye"></i>
+                            View
+                        </button>
+                        <a href="./documents/recommendation-letter.pdf" class="pdf-download-btn">
+                            <i class="fas fa-download"></i>
+                            Download
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 text-center reveal delay-4">
+                <p class="text-ink-light text-sm italic">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    Click "View" to preview documents in full screen or "Download" to save them to your device.
+                </p>
+            </div>
+        </div>
+
+
+                    <!-- Pixel Forge Project Section -->
+            <div class="mt-24 reveal">
+                <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center bg-white rounded-2xl p-8 md:p-12 shadow-lg border border-gray-100">
+                    <div>
+                        <div class="relative w-full" style="aspect-ratio: 16/10; border-radius: 12px; overflow: hidden;">
+                            <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=500&fit=crop" alt="Pixel Forge AI Media Platform" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                            <div class="absolute bottom-6 left-6">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="px-3 py-1 bg-brand-green text-white text-xs font-semibold rounded-full uppercase tracking-wider">AI-Powered</span>
+                                    <span class="px-3 py-1 bg-brand-orange text-white text-xs font-semibold rounded-full uppercase tracking-wider">Media Tool</span>
+                                </div>
+                                <h3 class="font-display text-2xl text-white font-light">Pixel Forge</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="section-label">Featured Project</span>
+                        <h3 class="font-display text-3xl md:text-4xl font-light text-ink-black leading-tight mt-2">Pixel Forge (Media AI)</h3>
+                        <div class="green-line mt-6 mb-6"></div>
+                        <p class="text-ink-mid leading-relaxed mb-4">
+                            Pixel Forge is an innovative AI-powered media platform designed to revolutionize how creators interact with visual content. As the developer behind this project, I created a comprehensive solution that combines cutting-edge artificial intelligence with intuitive design to deliver powerful media manipulation capabilities.
+                        </p>
+                        <p class="text-ink-mid leading-relaxed mb-6">
+                            The platform offers advanced features including AI image generation, intelligent photo enhancement, automated background removal, style transfer, and smart content analysis. Whether you're a professional photographer, content creator, or social media enthusiast, Pixel Forge simplifies complex editing tasks while maintaining professional quality results.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-8">
+                            <span class="skill-tag">Artificial Intelligence</span>
+                            <span class="skill-tag">Image Generation</span>
+                            <span class="skill-tag">Photo Enhancement</span>
+                            <span class="skill-tag">Media Processing</span>
+                            <span class="skill-tag">Full-Stack Development</span>
+                        </div>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="https://mediaai.onrender.com/" target="_blank" class="inline-flex items-center gap-2 px-8 py-3.5 bg-brand-green text-white text-sm font-semibold uppercase tracking-widest rounded-full hover:bg-brand-orange transition-all duration-300 hover:shadow-lg hover:shadow-brand-orange/25 hover:-translate-y-0.5">
+                                <i class="fas fa-external-link-alt"></i>
+                                Try Pixel Forge
+                            </a>
+                            <a href="#contact" class="inline-flex items-center gap-2 px-8 py-3.5 border-2 border-ink-black text-ink-black text-sm font-semibold uppercase tracking-widest rounded-full hover:bg-ink-black hover:text-white transition-all duration-300 hover:-translate-y-0.5">
+                                <i class="fas fa-envelope"></i>
+                                Get In Touch
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+    </section>
+
+    <!-- PDF Modal -->
+    <div id="pdf-modal">
+        <div class="pdf-modal-content">
+            <button class="pdf-modal-close" onclick="closePdfModal()">
+                <i class="fas fa-xmark"></i>
+            </button>
+            <iframe id="pdf-iframe" src="" style="width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+    </div>
+
+
+        <!-- Testimonials Section -->
     <section id="testimonials" class="py-24 md:py-36 bg-ink-black relative overflow-hidden">
         <div class="absolute inset-0 opacity-5">
             <div class="absolute top-10 left-10 font-display text-[20rem] font-bold text-white leading-none select-none pointer-events-none">&ldquo;</div>
@@ -1490,189 +1903,224 @@
                     vpFillWidth += 0.15;
                     if (vpFillWidth >= 100) vpFillWidth = 0;
                     document.getElementById('vp-fill').style.width = vpFillWidth + '%';
-                    const totalSeconds = 204;
-                    const currentSeconds = Math.floor(totalSeconds * vpFillWidth / 100);
-                    const cm = Math.floor(currentSeconds / 60);
-                    const cs = currentSeconds % 60;
-                    document.getElementById('vp-time').textContent = `${cm}:${cs.toString().padStart(2, '0')} / 3:24`;
                 }
             }, 100);
         }
 
         function stopVideoProgress() {
-            if (videoProgressInterval) clearInterval(videoProgressInterval);
+            clearInterval(videoProgressInterval);
         }
 
-        document.getElementById('vp-progress').addEventListener('click', (e) => {
-            const rect = e.currentTarget.getBoundingClientRect();
-            vpFillWidth = ((e.clientX - rect.left) / rect.width) * 100;
-            document.getElementById('vp-fill').style.width = vpFillWidth + '%';
+        // ==================== YOUTUBE MODAL ====================
+        function openYoutubeModal(videoId, title) {
+            const iframe = document.getElementById('yt-iframe');
+            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+            document.getElementById('youtube-modal').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeYoutubeModal() {
+            const iframe = document.getElementById('yt-iframe');
+            iframe.src = '';
+            document.getElementById('youtube-modal').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (!document.getElementById('youtube-modal').classList.contains('open')) return;
+            if (e.key === 'Escape') closeYoutubeModal();
         });
 
-        // ==================== TESTIMONIALS CAROUSEL ====================
-        const track = document.getElementById('testimonial-track');
-        const slides = track.querySelectorAll('.testimonial-slide');
-        const dotsContainer = document.getElementById('testimonial-dots');
-        let currentSlide = 0;
-        let autoplayInterval;
-
-        slides.forEach((_, i) => {
-            const dot = document.createElement('button');
-            dot.className = 'testimonial-dot' + (i === 0 ? ' active' : '');
-            dot.setAttribute('aria-label', `Go to testimonial ${i + 1}`);
-            dot.addEventListener('click', () => goToSlide(i));
-            dotsContainer.appendChild(dot);
-        });
-
-        function goToSlide(index) {
-            currentSlide = index;
-            track.style.transform = `translateX(-${index * 100}%)`;
-            dotsContainer.querySelectorAll('.testimonial-dot').forEach((d, i) => {
-                d.classList.toggle('active', i === index);
-            });
+        // ==================== PDF MODAL ====================
+        function openPdfModal(pdfSrc, title) {
+            const iframe = document.getElementById('pdf-iframe');
+            iframe.src = pdfSrc;
+            document.getElementById('pdf-modal').classList.add('open');
+            document.body.style.overflow = 'hidden';
         }
 
-        function nextSlide() {
-            goToSlide((currentSlide + 1) % slides.length);
+        function closePdfModal() {
+            const iframe = document.getElementById('pdf-iframe');
+            iframe.src = '';
+            document.getElementById('pdf-modal').classList.remove('open');
+            document.body.style.overflow = '';
         }
 
-        function startAutoplay() {
-            autoplayInterval = setInterval(nextSlide, 5000);
-        }
-
-        function stopAutoplay() {
-            clearInterval(autoplayInterval);
-        }
-
-        startAutoplay();
-        dotsContainer.addEventListener('mouseenter', stopAutoplay);
-        dotsContainer.addEventListener('mouseleave', startAutoplay);
-
-        let touchStartX = 0;
-        let touchEndX = 0;
-        track.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; stopAutoplay(); }, { passive: true });
-        track.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            const diff = touchStartX - touchEndX;
-            if (Math.abs(diff) > 50) {
-                if (diff > 0) goToSlide(Math.min(currentSlide + 1, slides.length - 1));
-                else goToSlide(Math.max(currentSlide - 1, 0));
-            }
-            startAutoplay();
-        }, { passive: true });
-
-        // ==================== CONTACT FORM ====================
-        const contactForm = document.getElementById('contact-form');
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            let valid = true;
-
-            const name = document.getElementById('name');
-            const email = document.getElementById('email');
-            const message = document.getElementById('message');
-            const nameError = document.getElementById('name-error');
-            const emailError = document.getElementById('email-error');
-            const messageError = document.getElementById('message-error');
-
-            [nameError, emailError, messageError].forEach(el => el.classList.add('hidden'));
-            [name, email, message].forEach(el => el.style.borderColor = '#E7E5E4');
-
-            if (!name.value.trim()) {
-                nameError.classList.remove('hidden');
-                name.style.borderColor = '#E76F51';
-                valid = false;
-            }
-
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email.value.trim())) {
-                emailError.classList.remove('hidden');
-                email.style.borderColor = '#E76F51';
-                valid = false;
-            }
-
-            if (!message.value.trim()) {
-                messageError.classList.remove('hidden');
-                message.style.borderColor = '#E76F51';
-                valid = false;
-            }
-
-            if (valid) {
-                showToast('Message sent successfully! I\'ll get back to you soon.', 'success');
-                contactForm.reset();
-            } else {
-                showToast('Please fill in all required fields.', 'error');
-            }
+        document.addEventListener('keydown', (e) => {
+            if (!document.getElementById('pdf-modal').classList.contains('open')) return;
+            if (e.key === 'Escape') closePdfModal();
         });
 
         // ==================== TOAST ====================
         function showToast(message, type = 'success') {
             const toast = document.getElementById('toast');
             toast.textContent = message;
-            toast.className = type + ' show';
+            toast.className = `show ${type}`;
             setTimeout(() => {
                 toast.classList.remove('show');
-            }, 3500);
+            }, 3000);
         }
 
-        // ==================== SMOOTH SCROLL ====================
+        // ==================== TESTIMONIAL SLIDER ====================
+        const testimonialTrack = document.getElementById('testimonial-track');
+        const testimonialDots = document.getElementById('testimonial-dots');
+        const testimonialSlides = document.querySelectorAll('.testimonial-slide');
+        let currentTestimonial = 0;
+        let testimonialInterval;
+
+        function createTestimonialDots() {
+            testimonialSlides.forEach((_, i) => {
+                const dot = document.createElement('button');
+                dot.className = 'testimonial-dot';
+                dot.addEventListener('click', () => goToTestimonial(i));
+                testimonialDots.appendChild(dot);
+            });
+            updateTestimonialDots();
+        }
+
+        function updateTestimonialDots() {
+            document.querySelectorAll('.testimonial-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentTestimonial);
+            });
+        }
+
+        function goToTestimonial(index) {
+            currentTestimonial = index;
+            testimonialTrack.style.transform = `translateX(-${index * 100}%)`;
+            updateTestimonialDots();
+        }
+
+        function nextTestimonial() {
+            currentTestimonial = (currentTestimonial + 1) % testimonialSlides.length;
+            goToTestimonial(currentTestimonial);
+        }
+
+        function startTestimonialAuto() {
+            testimonialInterval = setInterval(nextTestimonial, 5000);
+        }
+
+        function stopTestimonialAuto() {
+            clearInterval(testimonialInterval);
+        }
+
+        createTestimonialDots();
+        startTestimonialAuto();
+
+        testimonialTrack.addEventListener('mouseenter', stopTestimonialAuto);
+        testimonialTrack.addEventListener('mouseleave', startTestimonialAuto);
+
+        // ==================== VIDEO POSTER CLICKS ====================
+        document.querySelectorAll('.video-poster-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const videoId = card.dataset.videoId;
+                const title = card.dataset.videoTitle;
+                openYoutubeModal(videoId, title);
+            });
+        });
+
+        // ==================== CONTACT FORM ====================
+        const contactForm = document.getElementById('contact-form');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const messageInput = document.getElementById('message');
+        const nameError = document.getElementById('name-error');
+        const emailError = document.getElementById('email-error');
+        const messageError = document.getElementById('message-error');
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function showError(input, errorElement, message) {
+            input.classList.add('border-red-500');
+            errorElement.textContent = message;
+            errorElement.classList.remove('hidden');
+        }
+
+        function hideError(input, errorElement) {
+            input.classList.remove('border-red-500');
+            errorElement.classList.add('hidden');
+        }
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let isValid = true;
+
+            // Validate name
+            if (!nameInput.value.trim()) {
+                showError(nameInput, nameError, 'Please enter your name');
+                isValid = false;
+            } else {
+                hideError(nameInput, nameError);
+            }
+
+            // Validate email
+            if (!emailInput.value.trim()) {
+                showError(emailInput, emailError, 'Please enter your email');
+                isValid = false;
+            } else if (!validateEmail(emailInput.value)) {
+                showError(emailInput, emailError, 'Please enter a valid email');
+                isValid = false;
+            } else {
+                hideError(emailInput, emailError);
+            }
+
+            // Validate message
+            if (!messageInput.value.trim()) {
+                showError(messageInput, messageError, 'Please enter your message');
+                isValid = false;
+            } else {
+                hideError(messageInput, messageError);
+            }
+
+            if (isValid) {
+                // Here you would typically send the form data to a server
+                // For now, we'll just show a success message
+                showToast('Message sent successfully! I\'ll get back to you soon.', 'success');
+                contactForm.reset();
+            } else {
+                showToast('Please fix the errors above.', 'error');
+            }
+        });
+
+        // ==================== SMOOTH SCROLLING ====================
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
+                e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    e.preventDefault();
-                    const offset = 80;
-                    const top = target.getBoundingClientRect().top + window.scrollY - offset;
-                    window.scrollTo({ top, behavior: 'smooth' });
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 }
             });
         });
 
-
-
-        // ==================== YOUTUBE VIDEO MODAL ====================
-        const youtubeModal = document.getElementById('youtube-modal');
-        const ytIframe = document.getElementById('yt-iframe');
-        const videoPosterCards = document.querySelectorAll('.video-poster-card');
-
-        videoPosterCards.forEach(card => {
-            const cardImg = card.querySelector('img');
-            const cardPlayBtn = card.querySelector('.video-play');
-            card.addEventListener('mouseenter', () => {
-                cardImg.style.transform = 'scale(1.03)';
-                cardPlayBtn.style.background = '#E76F51';
-                cardPlayBtn.querySelector('i').style.color = '#fff';
-                cardPlayBtn.style.transform = 'translate(-50%, -50%) scale(1.1)';
-            });
-            card.addEventListener('mouseleave', () => {
-                cardImg.style.transform = 'scale(1)';
-                cardPlayBtn.style.background = 'rgba(255,255,255,0.95)';
-                cardPlayBtn.querySelector('i').style.color = '#2D6A4F';
-                cardPlayBtn.style.transform = 'translate(-50%, -50%) scale(1)';
-            });
-
-            card.addEventListener('click', () => {
-                const videoId = card.dataset.videoId;
-                ytIframe.src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0&modestbranding=1';
-                youtubeModal.style.opacity = '1';
-                youtubeModal.style.visibility = 'visible';
-                document.body.style.overflow = 'hidden';
+        // ==================== ACCESSIBILITY ====================
+        // Add keyboard navigation for filter buttons
+        filterBtns.forEach(btn => {
+            btn.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    btn.click();
+                }
             });
         });
 
-        function closeYoutubeModal() {
-            youtubeModal.style.opacity = '0';
-            youtubeModal.style.visibility = 'hidden';
-            ytIframe.src = '';
-            document.body.style.overflow = '';
-        }
-
-        youtubeModal.addEventListener('click', (e) => {
-            if (e.target === youtubeModal) closeYoutubeModal();
+        // Add ARIA labels where needed
+        document.querySelectorAll('.masonry-item').forEach(item => {
+            item.setAttribute('role', 'button');
+            item.setAttribute('tabindex', '0');
+            item.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    item.click();
+                }
+            });
         });
 
-        document.addEventListener('keydown', (e) => {
-            if (youtubeModal.style.visibility === 'visible' && e.key === 'Escape') closeYoutubeModal();
-        });
     </script>
 </body>
 </html>
